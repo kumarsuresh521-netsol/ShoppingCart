@@ -1,0 +1,131 @@
+/* Empty. Add your own CSS if you like */
+.bar.bar-stable{
+    border-width: 0px;
+}
+
+.nav-bar-title img{
+    width:25px;
+    margin:8px 0;
+}
+
+.bar .title.title-left {
+    text-align: center;
+}
+/* Side Menu */
+
+.sidenav{
+   background-color: #666;
+}
+.sidenav .item,.sidenav .item-complex .item-content, .item-radio .item-content{
+    background-color: #666;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 35px;
+    border-width:0px;
+}
+
+.sidenav .item .icon{
+    font-size:24px;
+    font-weight:100;
+}
+
+.sideicon{
+    float: left;
+    width: 49%;
+}
+
+.sideicon .item-content{
+    font-size: 20px !important;
+    text-align: center;
+    line-height: 30px !important;
+    padding: 5px;
+}
+
+/*  Product listing */
+.products{
+    float:left;
+    width:100%;
+    margin: 3px;
+}
+
+.products .product{
+    float: left;
+    width:49%;
+}
+
+.product .product_img{
+    text-align:center;
+}
+.product .product_img img{
+    width: 180px !important;
+    height: 190px;
+}
+
+.product .product_name{
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: #737373; 
+}
+
+.product .product_price{
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: #6ABF9C;  
+}
+
+/* ------- SEARCH ----*/
+.searchBar {
+	color: #fff;
+	margin: 0 !important;
+	padding: 0;
+}
+.searchBar .icon {
+    font-size: 28px;
+    line-height: 1.2;
+    padding-right: 6px;
+    padding-left: 6px;
+    color: #fff;
+}
+
+.searchBar .icon {
+    font-size: 28px;
+    line-height: 1.2;
+    padding-right: 6px;
+    padding-left: 6px;
+    color: #fff;
+}
+.searchBar .searchTxt {
+	right: 70px;
+	width: calc(100% - 110px);
+	position: fixed;
+	height: calc(100% - 10px);
+}
+.searchBar.numicons2 .searchTxt {
+	width: calc(100% - 135px);
+}
+.searchBar .searchTxt > .bgdiv {
+	background-color: #aaa;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	opacity: 0.3;
+}
+.searchBar .searchTxt > .bgtxt {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.searchBar .searchTxt input {
+    text-align:center;
+	width: 100%;
+    color: #000;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 1px solid #9E9E9E;
+    border-radius: 15px;
+}

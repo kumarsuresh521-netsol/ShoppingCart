@@ -1,0 +1,60 @@
+<ion-side-menus enable-menu-with-back-views="false">
+  <ion-side-menu-content>
+    <ion-nav-bar class="bar-stable">
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent"></ion-nav-view>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left">
+    <ion-header-bar class="bar-stable">
+      <!-- <h1 class="title">Left</h1> -->
+    </ion-header-bar>
+    <ion-content class="sidenav">
+      <ion-list>
+        <ion-item menu-close ng-click="login()" class="item-icon-right">
+          MEN
+          <i class="icon ion-plus-round"></i>
+        </ion-item>
+        <ion-item menu-close href="#/app/search" class="item-icon-right">
+          WOMEN
+          <i class="icon ion-plus-round"></i>
+        </ion-item>
+        <ion-item menu-close href="#/app/browse" class="item-icon-right">
+          KIDS
+          <i class="icon ion-plus-round"></i>
+        </ion-item>
+        <ion-item menu-close href="#/app/playlists" class="item-icon-right">
+          ACCESSORIES
+          <i class="icon ion-plus-round"></i>
+        </ion-item>
+        <ion-item menu-close href="#/app/playlists" class="item-icon-right">
+          FOOTWEAR
+          <i class="icon ion-plus-round"></i>
+        </ion-item>
+        <ion-item menu-close href="#/app/playlists" class="item-icon-right">
+          HANDBAGS
+          <i class="icon ion-plus-round"></i>
+        </ion-item>
+        
+      </ion-list>
+      <div class="space" style="width: 100%; height:135px;"></div>
+      <ion-list>
+        <ion-item menu-close href="#/app/playlists" class="sideicon">
+        <i class="icon ion-gear-b"></i><br />
+          SETTINGS
+        </ion-item>
+        <ion-item menu-close href="#/app/playlists" class="sideicon">
+        <i class="icon ion-log-out"></i><br />
+          LOG OUT
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>

@@ -1,0 +1,67 @@
+<ion-view view-title="Playlists">
+    <ion-nav-title ng-show="!hasFilters">
+        <img src="img/icon-small.png" />
+    </ion-nav-title>
+    <search-bar ng-model="search"></search-bar>
+    
+  <ion-content>
+   <!-- <ion-list>
+      <ion-item ng-repeat="playlist in playlists" href="#/app/playlists/{{playlist.id}}">
+        {{playlist.title}}
+
+      </ion-item>
+    </ion-list> -->
+    <!--
+    <div style="width: 100%; float:left;" >
+        <div ng-repeat="playlist in playlists" style="float: left; width:49%; border: 1px solid #ddd; padding:5px;">
+            <div style="text-align:center"><img src="img/ionic.png"/></div>
+            <div style="text-align:center">{{playlist.title}}</div>
+        </div>
+    </div> -->
+    <div class="bar bar-header bar-dark">
+      <h1 class="title">MEN'S FOOTWEAR</h1>
+    </div>
+    <div class="products" style="margin-top: 50px;">
+        <div class="product">
+            <div class="product_img"><img src="img/product1.png" /></div>
+            <div class="product_name">Earthkeepers Sneakers</div>
+            <div class="product_price">$250</div>
+        </div>
+        <div class="product">
+            <div class="product_img"><img src="img/product2.png" /></div>
+            <div class="product_name">Perforated Oxfords</div>
+            <div class="product_price">$230</div>
+        </div>
+        <div class="product">
+            <div class="product_img"><img src="img/product3.png" /></div>
+            <div class="product_name">G.H Bas & Co. Oxfords</div>
+            <div class="product_price">$300</div>
+        </div>
+        <div class="product">
+            <div class="product_img"><img src="img/product4.png" /></div>
+            <div class="product_name">Dot Loafers</div>
+            <div class="product_price">$175</div>
+        </div>
+        <div class="product">
+            <div class="product_img"><img src="img/product3.png" /></div>
+            <div class="product_name">Puma Sports</div>
+            <div class="product_price">$100</div>
+        </div>
+        <div class="product">
+            <div class="product_img"><img src="img/product2.png" /></div>
+            <div class="product_name">Addidas Sports</div>
+            <div class="product_price">$130</div>
+        </div>
+        <div class="product">
+            <div class="product_img"><img src="img/product1.png" /></div>
+            <div class="product_name">Earthkeepers Sneakers</div>
+            <div class="product_price">$250</div>
+        </div>
+        <div class="product">
+            <div class="product_img"><img src="img/product1.png" /></div>
+            <div class="product_name">Earthkeepers Sneakers</div>
+            <div class="product_price">$250</div>
+        </div>
+    </div>
+  </ion-content>
+</ion-view>
