@@ -5,11 +5,74 @@
     <search-bar ng-model="search"></search-bar>
     
   <ion-content>
-
-    <div class="bar bar-header bar-dark">
-      <h1 class="title">MEN'S FOOTWEAR</h1>
+  <div class="product_detail">
+    <!-- Image Slider -->
+    
+    <ion-slide-box on-slide-changed="change(index)">
+      <ion-slide>
+        <img src="img/slide1.png" />
+      </ion-slide>
+      <ion-slide>
+        <img src="img/slide2.jpg" />
+      </ion-slide>
+      <ion-slide>
+        <img src="img/slide3.jpg" />
+      </ion-slide>
+      <ion-slide>
+        <img src="img/slide4.jpg" />
+      </ion-slide>
+    </ion-slide-box>
+    
+    <!-- Product Name, Likes -->
+    <div class="prodetail">
+        <h4>Volcom Shoes</h4>
+        <span><i class="icon ion-heart"></i> 100 Likes</span>
+        <div class="price">$120</div>
     </div>
     
+    <!-- Product Size -->
+    <div class="prodetail">
+        <h5>Sizes Available</h5>
+        <span><i class="icon ion-help"></i> Sizing Help</span>
+        <div class="price_box">
+            <span>6</span>
+            <span>7</span>
+            <span>8</span>
+            <span>9</span>
+        </div>
     </div>
+    
+    
+<!-- Product Colors -->
+    <div class="prodetail">
+        <h5>Colors Available</h5>
+        <div class="price_box">
+            <span style="background-color: #B20000;"></span>
+            <span style="background-color: #00B200;"></span>
+            <span style="background-color: #CC29A3;"></span>
+            <span style="background-color: #B82593;"></span>
+            <span style="background-color: #006BB2;"></span>
+        </div>
+    </div>
+    
+<!-- Product Description -->
+    <div class="prodetail">
+        <h5>Description</h5>
+        <div class="price_box">
+            <p>- Dolor ipsum dolor sit amit</p>
+            <p>- Dolor ipsum dolor sit amit</p>
+            <p>- Dolor ipsum dolor sit amit</p>
+        </div>
+        
+        <h5>Material</h5>
+        <div class="price_box">
+            <p>- Dolor ipsum dolor sit amit</p>
+        </div>
+    </div>
+    
+
+
+  </div>
+
   </ion-content>
 </ion-view>
