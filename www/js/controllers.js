@@ -92,5 +92,8 @@ angular.module('starter.controllers', [])
   ];
 })
 
+.controller('FilterCtrl', function($scope, $stateParams) {
+})
+
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 });

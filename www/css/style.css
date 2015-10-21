@@ -193,3 +193,9 @@
 .prodetail .price_box p{
     margin: 0px !important;
 }
+
+
+.item .badge {
+    top: 25px !important;
+    right: 50px !important;
+}
