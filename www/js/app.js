@@ -52,6 +52,25 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         }
       }
     })
+    
+    .state('app.forgot', {
+      url: '/forgot',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/forgot.html'
+        }
+      }
+    })
+    
+    .state('app.setting', {
+      url: '/setting',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/setting.html'
+        }
+      }
+    })
+    
     .state('app.playlists', {
       url: '/playlists',
       views: {
@@ -82,5 +101,5 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/filter');
+  $urlRouterProvider.otherwise('/app/setting');
 });

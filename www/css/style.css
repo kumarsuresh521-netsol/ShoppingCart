@@ -199,3 +199,42 @@
     top: 25px !important;
     right: 50px !important;
 }
+
+/* forgot password... screen */
+
+.forgot .hero{
+    background: #504F4F;
+    width: 100%;
+    height: 260px;
+}
+
+.forgot .hero .title{
+    color: #fff;
+    text-align: center;
+    font-size: 36px;
+    padding: 0 0 0 121px;
+}
+
+
+.forgot .hero .avatar {
+    background-image: url('img/profile1.jpg');
+    width: 100%;
+    height: 115px;
+    background-repeat: no-repeat;
+    margin: 30px 0 0 135px;
+}
+.forgot h2{
+    text-align: center;
+    padding:14px;
+}
+
+.forgot a.item{
+    font-size: 18px;
+    font-weight:bold;
+}
+
+.forgot li.item{
+    font-size: 18px;
+    font-weight:bold;
+}
+
