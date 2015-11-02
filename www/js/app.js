@@ -100,6 +100,15 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         }
       }
     })
+    
+    .state('app.shippingdetails', {
+      url: '/shippingdetails',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/shippingdetails.html'
+        }
+      }
+    })
 
   .state('app.single', {
     url: '/playlists/:playlistId',
