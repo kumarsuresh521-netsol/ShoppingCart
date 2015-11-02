@@ -35,7 +35,26 @@ angular.module('starter.controllers', [])
 		}
   }
   }])
-  
+ 
+ 
+ .controller('CartCtrl', function($scope, $ionicModal, $timeout) {
+    $scope.quantity = 1;
+    $scope.myquantity = function(type){
+       var quantity = 1;
+        if(type == 1){
+            quantity = $scope.quantity + 1;
+        }
+        
+        if(type == 0){
+            quantity = $scope.quantity - 1;
+        }
+        
+        if(quantity < 1){
+            quantity = 1;
+        }
+        return $scope.quantity = quantity;
+    }
+ })
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
   // With the new view caching in Ionic, Controllers are only called

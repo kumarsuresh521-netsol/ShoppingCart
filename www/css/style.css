@@ -238,3 +238,10 @@
     font-weight:bold;
 }
 
+/* Cart */
+.icon-square{
+    padding: 2px 5px 2px 5px;
+    background-color: rgba(99, 186, 189, 0.74);
+    color: #fff;
+}
+

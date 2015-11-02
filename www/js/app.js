@@ -90,6 +90,16 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         }
       }
     })
+    
+    .state('app.cart', {
+      url: '/cart',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/cart.html',
+          controller: 'CartCtrl'
+        }
+      }
+    })
 
   .state('app.single', {
     url: '/playlists/:playlistId',
@@ -101,5 +111,5 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/setting');
+  $urlRouterProvider.otherwise('/app/cart');
 });
