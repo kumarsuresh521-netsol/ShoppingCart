@@ -16,7 +16,6 @@
   Created by Ben Sperry for the Ionic Framework, http://ionicons.com/
   https://twitter.com/benjsperry  https://twitter.com/ionicframework
   MIT License: https://github.com/driftyco/ionicons
-
   Android-style icons originally built by Google’s
   Material Design Icons: https://github.com/google/material-design-icons
   used under CC BY http://creativecommons.org/licenses/by/4.0/
@@ -1471,7 +1470,7 @@
   content: "\f4a2"; }
 
 .ion-ios-search:before {
-  content: "\f4a5"; }
+  content: "\f4a5"; margin-right: -7px; }
 
 .ion-ios-search-strong:before {
   content: "\f4a4"; }
@@ -2250,7 +2249,6 @@
  * There are probably other things we could remove here, as well.
  *
  * normalize.css v2.1.2 | MIT License | git.io/normalize
-
  * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
  * http://cssreset.com
  */
@@ -3096,7 +3094,7 @@ a.subdued {
     background-image: linear-gradient(0deg, #0c63ee, #0c63ee 50%, transparent 50%);
     color: #fff; }
     .bar.bar-positive .title {
-      color: #fff; }
+      color: #7CD6C8; }
     .bar.bar-positive.bar-footer {
       background-image: linear-gradient(180deg, #0c63ee, #0c63ee 50%, transparent 50%); }
   .bar.bar-calm {
@@ -7668,7 +7666,7 @@ a.button {
 [nav-bar-transition="android"] [nav-bar="cached"] {
   display: block; }
   [nav-bar-transition="android"] [nav-bar="cached"] .header-item {
-    display: none; }
+    display: none; background: #7CD6C8; }
 
 [nav-swipe="fast"] [nav-view], [nav-swipe="fast"] .title, [nav-swipe="fast"] .buttons, [nav-swipe="fast"] .back-text {
   -webkit-transition-duration: 50ms;

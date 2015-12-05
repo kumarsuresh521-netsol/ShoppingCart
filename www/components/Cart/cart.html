@@ -1,0 +1,49 @@
+<ion-view view-title="Cart" ng-controller="cartCtrl as cc">
+    <ion-nav-title >
+        <img src="img/icon-small.png" style="height: 36px; width: 36px; margin-top: 4px; "/>
+  </ion-nav-title>
+  <ion-nav-buttons side="right">
+    <div class="searchBar" >
+        <div class="searchTxt" ng-show="cc.showMe">
+            <div class="bgtxt">
+                <input type="text" ng-model="cc.searchproducts" placeholder="Search Products" >
+            </div>
+        </div>
+        <i class="icon ion-ios-search" ng-click="cc.showMeSearch()"></i>
+    
+    </div>
+</ion-nav-buttons>
+  <ion-content>
+    <div class="bar bar-header bar-dark">
+      <h1 class="title">CART</h1>
+    </div>
+    
+    <div class="list" style="top: 44px;" ng-if="cc.cartProducts">
+        <a class="item item-thumbnail-left" href="#" ng-repeat="x in cc.cartProducts">
+              <img src="img/product2.png" />
+              <i style="float: right;" class="icon ion-trash-a" ng-click="cc.deleteProduct({{x.product_id}})"></i>
+              <h2>{{x.name}}</h2>
+              <p>Size: 38 | Color: Brown </p>
+                <div class="price" style="loat: LEFT; font-size: 20px;font-weight: 900;color: #6FD0D6;margin: 5px 0px 20px 0;">{{x.price | currency}}</div>
+                 <div class="pull-left" style="margin-top: 15px;">
+                    <i class="icon ion-plus icon-square" style="background: #ddd;color: #fff;padding: 8px 12px;" ng-click="cc.myquantity({{x.product_id}},'1')"></i> <span> &nbsp;&nbsp;{{cc.quantity}} &nbsp;&nbsp; </span> <i style="background: #ddd;color: #fff;padding: 8px 12px;" class="icon ion-minus icon-square" ng-click="cc.myquantity({{x.product_id}}, '0')"></i>
+                    <div class="price" style="float:right; ">{{x.subTotal | currency}}</div>
+                </div>
+                
+                
+               
+         </a>
+    </div>
+    
+   <div class="list" style="top: 23px;" ng-if="cc.cartProducts">
+      <div class="item item-text-wrap">
+        <div class="pull-right" >
+        <p style=""><b>Total</b> <span style="float: right; font-weight:600; font-size:16px;">{{cc.cartProducts.total | currency}}</span></p> <br /><hr />
+        </div>
+      </div>
+    </div>
+    
+    <button class="button button-full button-calm" ng-click="cc.updateCart()">Update Cart</button>
+    <button class="button button-full button-calm" ng-click="cc.GoToCheckOut()">Checkout</button>
+  </ion-content>
+</ion-view>

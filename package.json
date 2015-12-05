@@ -1,7 +1,7 @@
 {
-  "name": "shoppingcart",
-  "version": "1.0.0",
-  "description": "ShoppingCart: An Ionic project",
+  "name": "carttwo",
+  "version": "1.1.1",
+  "description": "cartTwo: An Ionic project",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^2.0.4",

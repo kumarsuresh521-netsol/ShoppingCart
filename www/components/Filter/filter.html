@@ -1,0 +1,58 @@
+
+<ion-view title="Filter">
+    <ion-nav-title >
+        <img src="img/icon-small.png" style="height: 36px; width: 36px; margin-top: 4px; "/>
+    </ion-nav-title>
+  <ion-content padding="true" class="has-header" style="background-color:#444444;">
+    <div class="bar bar-header bar-dark">
+         <h1 class="title">FILTER</h1>
+        <button ui-sref="app.prodListing" class="button button clear ion-arrow-swap"></button>
+    </div>
+  <div style="float: left;width: 100%;">
+        <div class="filer-main">
+            <a href="javascript:;" ng-click="pc.showMeSelect()" class="filter-options">Type</a>
+            <a href="javascript:;" class="filter-options">Brand</a>
+            <a href="javascript:;" class="filter-options">Size</a>
+            <a href="javascript:;" class="filter-options">Color</a>
+            <a href="javascript:;" class="filter-options">Price</a>
+            <a href="javascript:;" class="filter-options">Discount</a>
+
+        </div>
+        <div class="filter-sub">
+
+          <div class="list">
+            <ul class="list">
+              <li class="item item-checkbox filter-list">
+                <div class="customised-filter">Casual Shoes</div>
+                 <label class="checkbox">
+                   <input type="checkbox">
+                 </label>
+              </li>
+
+              <li class="item item-checkbox filter-list">
+                <div class="customised-filter">Formal Shoes</div>
+                 <label class="checkbox">
+                   <input type="checkbox">
+                 </label>
+              </li>
+
+              <li class="item item-checkbox filter-list">
+                <div class="customised-filter">Sports Shoes</div>
+                 <label class="checkbox">
+                   <input type="checkbox">
+                 </label>
+              </li>
+
+                <li class="item item-checkbox filter-list">
+                <div class="customised-filter">Sandals</div>
+                 <label class="checkbox">
+                   <input type="checkbox">
+                 </label>
+              </li>
+            </ul>
+            </div>
+      
+        </div>   
+    </div>    
+  </ion-content>
+</ion-view>

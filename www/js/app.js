@@ -1,124 +1,80 @@
-// Ionic Starter App
+(function() {
+    'use strict';
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers'])
+    // Ionic Starter App
 
-.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    if (window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      cordova.plugins.Keyboard.disableScroll(true);
+    // angular.module is a global place for creating, registering and retrieving Angular modules
+    // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
+    // the 2nd parameter is an array of 'requires'
 
+    angular.module('myApp', ['ionic', 'myApp.login', 'myApp.signup','myApp.home','myApp.menu','myApp.banner','myApp.product','myApp.prodListing','myApp.filter','myApp.ngMessages','myApp.cart','myApp.checkout'])
+
+        .run(runApp)
+        .config(configure)
+
+     .directive('searchBar', [function () {
+    return {
+        scope: {
+            ngModel: '='
+        },
+        require: ['^ionNavBar', '?ngModel'],
+        restrict: 'E',
+        replace: true,
+        template: '<ion-nav-buttons side="right">'+
+                        '<div class="searchBar">'+
+                            '<div class="searchTxt" ng-show="ngModel.show">'+
+                                '<div class="bgtxt">'+
+                                    '<input type="text" placeholder="Search Products" >'+
+                                '</div>'+
+                            '</div>'+
+                            '<i class="icon ion-ios-search" ng-click="ngModel.txt=\'\';ngModel.show=!ngModel.show"></i>'+
+                        '<i class="icon ion-android-cart"></i>'+
+                        '</div>'+
+                    '</ion-nav-buttons>',
+        
+        compile: function (element, attrs) {
+            var icon=attrs.icon
+                    || (ionic.Platform.isAndroid() && 'ion-android-search')
+                    || (ionic.Platform.isIOS()     && 'ion-ios7-search')
+                    || 'ion-search';
+            angular.element(element[0].querySelector('.icon')).addClass(icon);
+            
+            return function($scope, $element, $attrs, ctrls) {
+                var navBarCtrl = ctrls[0];
+                $scope.navElement = $attrs.side === 'right' ? navBarCtrl.rightButtonsElement : navBarCtrl.leftButtonsElement;
+                
+            };
+        }
+  }
+  }])
+  
+    
+
+    function configure($stateProvider , $urlRouterProvider, $ionicConfigProvider) {
+        
+        // Add initial config stuff here such as view caching refinements.
+        $ionicConfigProvider.views.maxCache(10); // Default is 10 anyway.
+        $urlRouterProvider.otherwise('/login'); // Default route for ui-router
+        if(!ionic.Platform.isIOS())$ionicConfigProvider.scrolling.jsScrolling(false);
+        $ionicConfigProvider.backButton.previousTitleText(false);
     }
-    if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
+
+    function runApp($ionicPlatform) {
+        $ionicPlatform.ready(function() {
+            // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+            // for form inputs)
+            if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+                cordova.plugins.Keyboard.disableScroll(true);
+            }
+            if (window.StatusBar) {
+                // org.apache.cordova.statusbar required
+                StatusBar.styleLightContent();
+            }
+        });
+        // Initialize caching services if required (You need to add DSCacheFactory as an argument to runApp() to do this)
+        // I sometimes have to initialize the cache within a factory/service as it is required immediately.
+        // DSCacheFactory("codes", { storageMode: 'localStorage' });
     }
-  });
-})
 
-.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
-    
-    if(!ionic.Platform.isIOS())$ionicConfigProvider.scrolling.jsScrolling(false);
-    
-  $stateProvider
-
-    .state('app', {
-    url: '/app',
-    abstract: true,
-    templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl'
-  })
-
-  .state('app.search', {
-    url: '/search',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/search.html'
-      }
-    }
-  })
-
-  .state('app.browse', {
-      url: '/browse',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/browse.html'
-        }
-      }
-    })
-    
-    .state('app.forgot', {
-      url: '/forgot',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/forgot.html'
-        }
-      }
-    })
-    
-    .state('app.setting', {
-      url: '/setting',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/setting.html'
-        }
-      }
-    })
-    
-    .state('app.playlists', {
-      url: '/playlists',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
-        }
-      }
-    })
-    
-    .state('app.filter', {
-      url: '/filter',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/filter.html',
-          controller: 'FilterCtrl'
-        }
-      }
-    })
-    
-    .state('app.cart', {
-      url: '/cart',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/cart.html',
-          controller: 'CartCtrl'
-        }
-      }
-    })
-    
-    .state('app.shippingdetails', {
-      url: '/shippingdetails',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/shippingdetails.html'
-        }
-      }
-    })
-
-  .state('app.single', {
-    url: '/playlists/:playlistId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
-      }
-    }
-  });
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/cart');
-});
+})();

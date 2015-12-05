@@ -1,0 +1,91 @@
+<ion-view view-title="Product" ng-controller="productCtrl as pd">
+    <ion-nav-title >
+        <img src="img/icon-small.png" style="height: 36px; width: 36px; margin-top: 4px; "/>
+  </ion-nav-title>
+  <ion-nav-buttons side="right">
+    <div class="searchBar" >
+      <div class="searchTxt" ng-show="pd.showMe">
+            <div class="bgtxt">
+                <input type="text" ng-model="pd.searchproducts" placeholder="Search Products" />
+            </div>
+        </div>
+        <i class="icon ion-ios-search" ng-click="pd.showMeSearch()"></i> 
+    <i class="icon ion-android-cart" ui-sref="app.cart"></i>
+    </div>
+</ion-nav-buttons>
+    
+  <ion-content>
+  <div class="product_detail">
+    <!-- Image Slider -->
+    
+    <ion-slide-box on-slide-changed="change(index)">
+      <ion-slide >
+        <img src="img/product1.png" ng-src="{{pd.pdata.productimage[0].url}}"/>
+      </ion-slide>
+      <ion-slide>
+        <img src="img/product1.png" ng-src="{{pd.pdata.productimage[1].url}}"/>
+      </ion-slide>
+      <ion-slide>
+        <img src="img/product1.png"  ng-src="{{pd.pdata.productimage[2].url}}" />
+      </ion-slide>
+    </ion-slide-box>
+    
+    <!-- Product Name, Likes -->
+    <div class="prodetail" ng-model="pd.pdata">
+        <h4>{{pd.pdata.name}}</h4>
+       <div class="product-price"><span class="regularPrice">MRP: {{pd.pdata.price | currency}}</span> <!-- <span class="specialPrice">{{pd.pdata.specialprice | currency}}</span> <span class="discount">90{{discount}}% Off</span> --></div>
+    </div>
+    
+    <!-- Product Size -->
+    <div ng-if="pd.pdata.optionid.length > 0" class="prodetail" ng-repeat="x in pd.pdata.optionid">
+        <h5>{{x.title}}</h5>
+        <select name="{{x.title}}" ng-model="pd[x.title]">
+          <option ng-repeat="y in pd.pdata.optionvalue[x.option_id]" value="{{y.value_id}}">{{y.title}}</option>
+        </select>
+    </div>
+<!-- Product Description -->
+    <div class="prodetail">
+        <h5>Description</h5>
+        <div ng-bind-html=pd.pdata.short_description class="price_box">
+        <h5>Material</h5>
+        <div class="price_box">
+            <p>- Dolor ipsum dolor sit amit</p>
+        </div>
+    </div>
+    
+    <h3 style="margin-top:50px;background: rgba(0, 212, 204, 0.49);float: left;border: 1px solid rgb(46, 231, 255);width: 100%;border-radius: 5px;padding: 0 5px 5px 5px;color: #fff;">You may also like this</h3>
+   <div class="products" style="display: flex; overflow-y: hidden; overflow-x: visible;">
+        <div class="product" style="border: 1px solid rgba(17, 243, 199, 0.43);">
+            <div class="product_img"><a ui-sref="app.prodListing"><img style="width: 168px !important;" src="img/product2.png" /></a></div>
+            <div class="product_name">Fun On XXL Bean</div>
+            <div class="product_price">$123</div>
+        </div>
+        <div class="product" style="border: 1px solid rgba(17, 243, 199, 0.43);">
+            <div class="product_img"><a ui-sref="app.prodListing"><img style="width: 168px !important;" src="img/product2.png" /></a></div>
+            <div class="product_name">Fun On XXL Bean</div>
+            <div class="product_price">$123</div>
+        </div>
+        <div class="product" style="border: 1px solid rgba(17, 243, 199, 0.43);">
+            <div class="product_img"><a ui-sref="app.prodListing"><img style="width: 168px !important;" src="img/product2.png" /></a></div>
+            <div class="product_name">Fun On XXL Bean</div>
+            <div class="product_price">$123</div>
+        </div>
+        <div class="product" style="border: 1px solid rgba(17, 243, 199, 0.43);">
+            <div class="product_img"><a ui-sref="app.prodListing"><img style="width: 168px !important;" src="img/product2.png" /></a></div>
+            <div class="product_name">Fun On XXL Bean</div>
+            <div class="product_price">$123</div>
+        </div>
+        <div class="product" style="border: 1px solid rgba(17, 243, 199, 0.43);">
+            <div class="product_img"><a ui-sref="app.prodListing"><img style="width: 168px !important;" src="img/product2.png" /></a></div>
+            <div class="product_name">Fun On XXL Bean</div>
+            <div class="product_price">$123</div>
+        </div>
+   </div>
+
+  </div>
+</div>
+  </ion-content>
+  <ion-footer-bar>
+    <button class="button button-full button-balanced" ng-click="pd.addCart({{pd.productid}})" style="color: #fff;">Add To Cart</button>
+    </ion-footer-bar>
+</ion-view>

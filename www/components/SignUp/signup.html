@@ -1,0 +1,44 @@
+
+<ion-view title="Signup">
+    <ion-content padding="true" scroll="false" class="has-header" ng-controller="signupCtrl as sp">
+        <form name="userForm" novalidate>
+            <ion-list>
+            <div ng-class="{ 'has-error' : userForm.firstname.$invalid && !userForm.firstname.$pristine }">
+                
+                <label class="item item-input">
+                    <input type="text" ng-model="sp.user.firstname" name="firstname" placeholder="First Name" ng-minlength="3" ng-maxlength="10" required>
+                </label>
+                    
+                    <p ng-show="userForm.firstname.$invalid && !userForm.firstname.$pristine && userForm.firstname.$error.minlength" class="help-block"><span class="min-valid">Firstname is too short</span></p>
+                    <p ng-show="userForm.firstname.$invalid && !userForm.firstname.$pristine && userForm.firstname.$error.maxlength" class="help-block"><span class="min-valid">Firstname is too long.</span></p>
+                    <p ng-show="userForm.firstname.$invalid && !userForm.firstname.$pristine && userForm.firstname.$error.required" class="help-block"><span class="min-valid">Firstname is required.</span></p>
+                
+                <label class="item item-input">
+                    <input type="text" ng-model="sp.user.lastname" name="lastname" placeholder="Last Name" ng-minlength="3" ng-maxlength="12" required>
+                </label>
+                   
+                    <p ng-show="userForm.lastname.$invalid && !userForm.lastname.$pristine && userForm.lastname.$error.minlength" class="help-block"><span class="min-valid">Lastname is too short</span></p>
+                    <p ng-show="userForm.lastname.$invalid && !userForm.lastname.$pristine && userForm.lastname.$error.maxlength" class="help-block"><span class="min-valid">Lastname is too long.</span></p>
+                    <p ng-show="userForm.lastname.$invalid && !userForm.lastname.$pristine && userForm.lastname.$error.required" class="help-block"><span class="min-valid">Lastname is required.</span></p>
+                
+                <label class="item item-input">                    
+                    <input type="email" ng-model="sp.user.username" name="username" placeholder="Email" required >
+                </label>
+                 
+                <p ng-show="userForm.username.$invalid && !userForm.username.$pristine && userForm.username.$error.email" class="help-block"><span class="min-valid">Please enter a valid email.</span></p>
+                <p ng-show="userForm.username.$invalid && !userForm.username.$pristine && userForm.username.$error.required" class="help-block"><span class="min-valid">Email is required.</span></p>
+                
+                <label class="item item-input">                    
+                    <input type="{{sp.ShowPassword}}" ng-model="sp.user.password" name="password" placeholder="Password" required>
+                </label>
+                <p ng-show="userForm.password.$invalid && !userForm.password.$pristine && userForm.password.$error.required" class="help-block"><span class="min-valid">Password is required.</span></p>
+                 <ion-checkbox name="chkPassword" ng-click="sp.ShowPassword = (sp.ShowPassword == 'password') ? 'text' : 'password'">Show Password</ion-checkbox>
+                 </div>
+            </ion-list>
+            <button class="button button-positive button-block " ng-disabled="userForm.$invalid" ng-click="sp.userLogin()">Sign up</button>
+            <div style="width:70%; margin:0 15%">
+                <button class="button button-stable button-clear button-small link-button">Already have an account? Sign In</button>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>

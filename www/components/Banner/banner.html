@@ -1,0 +1,112 @@
+<ion-view view-title="Banner" > //ng-controller="bannerCtrl as bc"
+ <ion-nav-title >
+        <img src="img/icon-small.png" style="height: 36px; width: 36px; margin-top: 4px; "/>
+  </ion-nav-title>
+  <ion-nav-buttons side="right">
+    <div class="searchBar" >
+        <div class="searchTxt" ng-show="bc.showMe">
+            <div class="bgtxt">
+                <input type="text" ng-model="bc.searchproducts" placeholder="Search Products" >
+            </div>
+        </div>
+        <i class="icon ion-ios-search" ng-click="bc.showMeSearch()"></i>
+    <i ui-sref="app.cart" class="icon ion-android-cart"></i>
+    </div>
+</ion-nav-buttons>
+  <!-- <div class="bar bar-subheader bar-dark">
+      <h1 class="title">Magento Banner</h1>
+    </div>
+  -->
+   <ion-content padding="true" class="has-header">
+   
+   <ion-slide-box on-slide-changed="change(index)" >
+    <ion-slide>
+        <img src="img/slide1.png" />
+      </ion-slide>
+      <ion-slide>
+        <img src="img/slide2.jpg" />
+      </ion-slide>
+    <ion-slide>
+        <img src="img/slide3.jpg" />
+      </ion-slide>
+      <ion-slide>   
+        <img src="img/slide4.jpg" />
+      </ion-slide>
+   </ion-slide-box>
+   
+   <h3 style="background: rgba(0, 212, 204, 0.49);float: left;border: 1px solid rgb(46, 231, 255);width: 100%;border-radius: 5px;padding: 0 5px 5px 5px;color: #fff;">New Products</h3>
+   <div class="products" style="display: flex; overflow-y: hidden; overflow-x: visible;">
+        <div class="product" style="border: 1px solid rgba(17, 243, 199, 0.43);" ng-repeat="x in bc.categoryBannersSpecial">
+            <div class="product_img"><a href="javascript:;" ng-click="bc.showProducts(x.productid)"><img style="width: 168px !important;" src="{{x.smallimage}}" /></a></div>
+            <div class="product_name">{{x.name}}</div>
+        </div>
+   </div>
+   
+   <h3 style="background: rgba(0, 212, 204, 0.49);float: left;border: 1px solid rgb(46, 231, 255);width: 100%;border-radius: 5px;padding: 0 5px 5px 5px;color: #fff;">Special Offers</h3>
+   <div class="products" style="display: flex; overflow-y: hidden; overflow-x: visible;">
+        <div class="product" ng-repeat="x in bc.categoryBanners" style="border: 1px solid rgba(17, 243, 199, 0.43);">
+            <div class="product_img"><a href="javascript:;" ng-click="bc.showProducts(x.productid)"><img style="width: 168px !important;" src="{{x.smallimage}}" /></a></div>
+            <div class="product_name">{{x.name}}</div>
+        </div>
+   </div>
+<!--
+    <ion-slide-box style="margin-top: 50px;" on-slide-changed="change(index)" >
+    
+      <ion-slide style="width:88px; height:77px;" ng-repeat="x in bc.categoryBanners">
+       <img style="width:88px; height:77px;" src="{{x.smallimage}}" />
+      </ion-slide>
+  
+  
+     <ion-slide style="    width: 125px;">
+        <img src="img/slide3.jpg" />
+      </ion-slide>
+      <ion-slide>   
+        <img src="img/slide4.jpg" />
+      </ion-slide>
+    
+  
+   </ion-slide-box>  -->
+    <!-- <div class="products" style="margin-top: 50px;">
+        <div class="product"  ng-repeat="x in bc.category[0].Subcategories ">
+            <div class="product_img"><a ui-sref="app.prodListing"><img src="img/{{x.img}}.jpg" /></a></div>
+            <div class="product_name">{{x.name}}</div>
+            
+        </div>
+        
+   </div>
+   -->
+   <ion-slide-box on-slide-changed="change(index)" >
+    <ion-slide>
+        <img src="img/slide1.png" />
+      </ion-slide>
+      <ion-slide>
+        <img src="img/slide2.jpg" />
+      </ion-slide>
+    <ion-slide>
+        <img src="img/slide3.jpg" />
+      </ion-slide>
+      <ion-slide>   
+        <img src="img/slide4.jpg" />
+      </ion-slide>
+   </ion-slide-box>
+   
+    <!--
+   <ion-slide-box style="margin-top: 50px;" on-slide-changed="change(index)" >
+   
+      <ion-slide ng-repeat="x in bc.categoryBanners">
+       <img src="{{x.smallimage}}" />
+      </ion-slide>
+  
+  
+     <ion-slide>
+        <img src="img/slide3.jpg" />
+      </ion-slide>
+      <ion-slide>
+        <img src="img/slide4.jpg" />
+      </ion-slide> 
+    </ion-slide-box> -->
+    
+   
+        
+  </ion-content>
+</ion-view>

@@ -1,0 +1,58 @@
+<ion-view view-title="Payment" ng-controller="checkoutCtrl as chc">
+    <ion-nav-title >
+        <img src="img/icon-small.png" style="height: 36px; width: 36px; margin-top: 4px; "/>
+  </ion-nav-title>
+  <ion-nav-buttons side="right">
+    <div class="searchBar" >
+        <div class="searchTxt" ng-show="chc.showMe">
+            <div class="bgtxt">
+                <input type="text" ng-model="chc.searchproducts" placeholder="Search Products" >
+            </div>
+        </div>
+        <i class="icon ion-ios-search" ng-click="chc.showMeSearch()"></i>
+    <i ui-sref="app.cart" class="icon ion-android-cart"></i>
+    </div>
+</ion-nav-buttons> 
+    
+  <ion-content>
+    <div class="bar bar-header bar-dark">
+      <h1 class="title">PAYMENT METHOD</h1>
+    </div>
+    <div class="list" style="top: 43px;">
+        <ul class="list">
+        <li class="item item-checkbox">
+             FLAT: $5
+          </li>
+          <li class="item item-checkbox">
+             <label class="checkbox">
+               <input type="radio"  ng-model="np.card" value="check" checked/>
+             </label>
+             Check / Money order
+          </li>
+          <li class="item item-checkbox">
+             <label class="checkbox">
+               <input type="radio"  ng-model="np.card" value="card" />
+             </label>
+            Credit Card (saved)
+          </li>
+        </ul>
+    </div>
+    
+    <div class="list" style="margin-top: 50px;">
+    <div class="card"  ng-repeat="x in chc.cartProducts">
+        <a class="item item-thumbnail-left" href="#" >
+              <img src="img/product2.png" />
+              <h2>{{x.name}}</h2>
+              <p>Size: 38 | Color: Brown </p>
+            <div class="price" style="loat: LEFT; font-size: 20px;font-weight: 900;color: #6FD0D6;margin: 5px 0px 20px 0;">{{x.price | currency}}</div>
+             <div class="pull-left" style="margin-top: 15px;">
+                <div class="price" style="float:right; ">{{x.subTotal | currency}}</div>
+            </div>
+         </a>
+    </div>
+        
+    </div>
+        <button ng-disabled="userForm.$invalid" class="button button-full button-calm" style="color: #fff; margin-top:35px" ng-click="chc.GoToNav('success')" >Place Order</button>
+    
+  </ion-content>
+</ion-view>
