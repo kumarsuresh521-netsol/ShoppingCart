@@ -1,4 +1,4 @@
-var cartSrvc;
+       var cartSrvc;
 
 cartSrvc = (function($log, $http, $q, constants) {
 
@@ -72,7 +72,7 @@ cartSrvc = (function($log, $http, $q, constants) {
            return deferred.promise;
         },
 //Update Cart..
-        updateCartProducts: function(products, quoteId, customer_id) {
+        updateCartProducts: function(products, quoteId, customer_id) { alert("hello");
             var deferred;
             deferred = pd.$q.defer();
             $http.post(constants.API_URL+'cart/UpdateProduct', {

@@ -31,5 +31,23 @@
                          }
                     }
                 })
+
+                .state('app.changepassword', {
+                    url: '/changepassword',
+                    views: {
+                        'menuContent' :{
+                            templateUrl: 'components/Profile/changepassword.html'
+                         }
+                    }
+                })
+
+                .state('app.myorderdetail', {
+                    url: '/myorderdetail:orderId',
+                    views: {
+                        'menuContent' :{
+                            templateUrl: 'components/Profile/myorderdetail.html'
+                         }
+                    }
+                })
         });
 })();

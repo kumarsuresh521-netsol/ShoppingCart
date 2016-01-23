@@ -1,9 +1,9 @@
 var shippingCtrl;
 
-shippingCtrl = (function($scope,$ionicSideMenuDelegate,$state, cartSrvc, checkoutSrvc, $ionicLoading) {
+shippingCtrl = (function($scope,$ionicSideMenuDelegate,$state, cartSrvc, checkoutSrvc, $ionicLoading, $ionicPopover) {
 
-    function shippingCtrl($scope,$state,cartSrvc, checkoutSrvc, $ionicLoading) { //console.log("$scope"); console.log($scope);
-        
+    function shippingCtrl($scope,$state,cartSrvc, checkoutSrvc, $ionicLoading, $ionicPopover) { //console.log("$scope"); console.log($scope);
+        $ionicLoading.show();
         this.state = $state;
         var self = this;
         self.paymentm = {};  
@@ -24,10 +24,13 @@ shippingCtrl = (function($scope,$ionicSideMenuDelegate,$state, cartSrvc, checkou
 
         var customerId = localStorage.getItem("customer_id");
 
-                    $ionicLoading.show();
+             
             checkoutSrvc.getUserShippingData(customerId, cartid).then(function(response) { //console.log(" shipping....");console.log(response);  
-                self.shipping = response;
-                self.shipping.shipping.telephone = parseInt(response.shipping.telephone);
+                if(response.success == 1){
+                    self.shipping = response.data;
+                    self.shipping.shipping.telephone = parseInt(response.data.shipping.telephone);
+                }
+                
             }).finally(function(){
                 $ionicLoading.hide();
             });
@@ -122,6 +125,12 @@ shippingCtrl = (function($scope,$ionicSideMenuDelegate,$state, cartSrvc, checkou
             });
             
          }
+                  //User Popover
+          $ionicPopover.fromTemplateUrl('components/Banner/userpopover.html', {
+            scope: $scope,
+          }).then(function(popover) {
+            $scope.popover = popover;
+          });
      }
     
     return shippingCtrl;

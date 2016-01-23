@@ -1,7 +1,7 @@
 var bannerCtrl;
 
-bannerCtrl = (function($rootScope, $scope,$ionicSideMenuDelegate,$state, $ionicLoading, $ionicHistory, homeSrvc, prodListingSrvc, cartSrvc, $ionicPopover,$timeout) {
-    function bannerCtrl($rootScope,$scope,bannerSrvc,$ionicSideMenuDelegate,$state, $ionicLoading, $ionicHistory, homeSrvc, prodListingSrvc, cartSrvc, $ionicModal, $ionicPopover, $timeout) {
+bannerCtrl = (function($rootScope, $scope,$ionicSideMenuDelegate,$state, $ionicNavBarDelegate, $ionicLoading, $ionicHistory, homeSrvc, prodListingSrvc, cartSrvc, $ionicPopover,$timeout) {
+    function bannerCtrl($rootScope,$scope,bannerSrvc,$ionicNavBarDelegate, $ionicSideMenuDelegate,$state, $ionicLoading, $ionicHistory, homeSrvc, prodListingSrvc, cartSrvc, $ionicModal, $ionicPopover, $timeout) {
 
        this.state = $state;
        this.scope = $scope;
@@ -9,34 +9,42 @@ bannerCtrl = (function($rootScope, $scope,$ionicSideMenuDelegate,$state, $ionicL
        this.showProfile = false;
         
         var self = this;
+// Hide back button on page..
+        $ionicNavBarDelegate.showBackButton(false);
         
         if(localStorage.getItem("cartTotal") && localStorage.getItem("cartTotal") != 'NaN' && localStorage.getItem("cartid") && localStorage.getItem("cartid") != 'NaN' ){
             self.cartTotal = localStorage.getItem("cartTotal");    
         } else {
             self.cartTotal = '0';
         }
+        
             $ionicLoading.show();
 
-            this.categories = homeSrvc.children[0].children;
+            this.categories = homeSrvc.children[0].children;// console.log("hime servies");console.log(this.categories);
 
             var prodCatListing = {};
 
             var i = 0;
 
-            if(i < this.categories.length){
+            if(this.categories.length > 0){
                 showCat(this.categories);
             }
 
-            function showCat(categories){ //console.log(i); //console.log(categories)
+            function showCat(categories){ //console.log(i); console.log(categories)
                 if(categories[i]){
-                prodListingSrvc.getCdata(categories[i].category_id).then(function(response) {
+                prodListingSrvc.getCdata(categories[i].category_id).then(function(response) { //console.log("hime servies");console.log(response);
                         //response[i].category_name = this.categories[i].name;
-                        if(response.length > 0 ){ 
+                        if(response.data.products.length > 0 ){ 
                             if(categories[i]){
-                                prodCatListing[i] = response;
-                                prodCatListing[i].name = categories[i].name;
-                                prodCatListing[i].category_id = categories[i].category_id;
-                                self.prodCatListing = prodCatListing;
+                                if(response.success == 1){
+                                      prodCatListing[i] = response.data.products;
+                                        prodCatListing[i].name = categories[i].name;
+                                        prodCatListing[i].category_id = categories[i].category_id;
+                                        self.prodCatListing = prodCatListing;  //console.log("sfsfdsdf servies"); console.log(self.prodCatListing);
+                                  } else {
+                                    return;
+                                  }
+                                
                             }
                         }
                         i++;
@@ -50,11 +58,16 @@ bannerCtrl = (function($rootScope, $scope,$ionicSideMenuDelegate,$state, $ionicL
             });
            
             bannerSrvc.getBdataSecond().then(function(response) {
-                self.categoryBanners = response;
+                if(response.length > 0){
+                    self.categoryBanners = response;
+                }
             });
 
-            bannerSrvc.getBdataSpecial().then(function(response) {
-                self.categoryBannersSpecial = response;
+            bannerSrvc.getBdataSpecial().then(function(response) { console.log("Special Banner"); console.log(response);
+                if(response.length > 0){
+                    self.categoryBannersSpecial = response;
+                }
+                
             }).finally(function(){
               $ionicLoading.hide();
             });
@@ -101,7 +114,7 @@ bannerCtrl = (function($rootScope, $scope,$ionicSideMenuDelegate,$state, $ionicL
                 localStorage.setItem("lastname", '');
                 localStorage.setItem("customer_id", '');
                 alert("You Logout Successfully");
-                this.state.go("app.login");
+                //this.state.go("app.login");
                 return;
             } else {
                 this.state.go(nav);

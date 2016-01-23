@@ -1,14 +1,10 @@
 var productCtrl;
 
-productCtrl = (function($rootScope,$scope,$state,productSrvc, $ionicSideMenuDelegate, $ionicLoading, cartSrvc, $ionicHistory) {
+productCtrl = (function($rootScope,$scope,$state,productSrvc, $ionicSideMenuDelegate, $ionicLoading, cartSrvc, $ionicHistory, $ionicPopover) {
 
-    function productCtrl($rootScope,$scope,productSrvc,$state,$stateParams, $ionicSideMenuDelegate, $ionicLoading, cartSrvc, $ionicHistory) {
+    function productCtrl($rootScope,$scope,productSrvc,$state,$stateParams, $ionicSideMenuDelegate, $ionicLoading, cartSrvc, $ionicHistory, $ionicPopover) {
             $ionicLoading.show();
-            if($stateParams.product_id){
-                var product_id = $stateParams.product_id;
-            } else {
-                var product_id = 1;
-            }
+            
             
            this.state = $state;
            var self = this;
@@ -19,42 +15,23 @@ productCtrl = (function($rootScope,$scope,$state,productSrvc, $ionicSideMenuDele
             } else {
                 self.cartTotal = '0';
             }
-           
-            productSrvc.getData(product_id).then(function(response) { //console.log('response');console.log(response);
-                self.pdata = response;
-                self.productid = response.product_id;
-                if(self.pdata.special_price){
-                    self.discount = (1 - (self.pdata.special_price / self.pdata.price)) * 100;
-                }
-             }).finally(function(){
+
+            if($stateParams.product_id){
+                var product_id = $stateParams.product_id;
+
+                productSrvc.getData(product_id).then(function(response) { console.log('response');console.log(response);
+                    self.pdata = response;
+                    self.productid = response.product_id;
+                    if(self.pdata.special_price){
+                        self.discount = (1 - (self.pdata.special_price / self.pdata.price)) * 100;
+                    }
+                 }).finally(function(){
+                    $ionicLoading.hide();
+                 });
+            } else {
                 $ionicLoading.hide();
-             });
-
-             var product_one = window.localStorage.getItem('compare_product_one_id');
-             $ionicLoading.show();
-             if(product_one && product_one != 'NULL'){
-                productSrvc.getData(product_one).then(function(response) { console.log('product_one');console.log(response);
-                    self.pCOData = response;
-                    if(self.pCOData.special_price){
-                        self.pCOData.discount = (1 - (self.pCOData.special_price / self.pCOData.price)) * 100;
-                    }
-                 }).finally(function(){
-                    $ionicLoading.hide();
-                 });
-             }
-
-             var product_two = window.localStorage.getItem('compare_product_two_id');
-             $ionicLoading.show();
-             if(product_two && product_two != 'NULL'){
-                productSrvc.getData(product_two).then(function(response) { console.log('response');console.log(response);
-                    self.pCTData = response;
-                    if(self.pCTData.special_price){
-                        self.pCTData.discount = (1 - (self.pCTData.special_price / self.pCTData.price)) * 100;
-                    }
-                 }).finally(function(){
-                    $ionicLoading.hide();
-                 });
-             }
+                this.state.go("app.banner");
+            }
            
            productCtrl.prototype.addToCart = function(id){
                 $scope.options = [];
@@ -120,30 +97,62 @@ productCtrl = (function($rootScope,$scope,$state,productSrvc, $ionicSideMenuDele
                 products['links'] = null;
                 
                 var products1 = [products];
-                
+
                 var customer = {};
-                customer['customer_as_guest'] = false;
-                customer['customer_id'] = localStorage.getItem('customer_id');
+
+               if(localStorage.getItem('customer_id')){
+                    customer['customer_as_guest'] = false;
+                    customer['customer_id'] = localStorage.getItem('customer_id');
+               } else {
+                    customer['customer_as_guest'] = true;
+                    customer['customer_id'] = null;
+               }
+                
+                
+                
                 if(localStorage.getItem("cartid") && localStorage.getItem("cartid") != '' && localStorage.getItem("cartid") != 'undefined'){
                     var cartid = localStorage.getItem("cartid");
                 } else {
                     var cartid = null;
-                } 
+                }
                 
+                alert(cartid);
                 request["products"]= products1;
                 request["customer"]= customer;
                 request["shopping_cart_id"]= cartid;
                 //console.log(self.pdata);
                 //console.log(request);
 
+
+                        $ionicLoading.hide();
+                        if(localStorage.getItem("cartTotal") && localStorage.getItem("cartTotal") != 'NaN' && localStorage.getItem("cartid") && localStorage.getItem("cartid") != 'NaN' ){
+                            var cartTotal = localStorage.getItem("cartTotal");
+                        } else {
+                            var cartTotal = 0;
+                        }
+                        self.cartTotal = parseInt(cartTotal) + 1;
+                        //cartSrvc.showToastBanner("Product is add to cart successfully.", "short", "center");
+
+
+
                 productSrvc.addToCart(request).then(function(response) { console.log("add to cart response");console.log(response);
                         
                     if(response.errorMsg){
                         $ionicLoading.hide();
-                        cartSrvc.showToastBanner(response.errorMsg, "short", "center");
+                        //cartSrvc.showToastBanner(response.errorMsg, "short", "center");
                         return;
+                    }else if(response.cart_id){
+                        localStorage.setItem("cartid", response.cart_id);
+                        
+                        if(localStorage.getItem("cartTotal") && localStorage.getItem("cartTotal") != 'NaN' && localStorage.getItem("cartid") && localStorage.getItem("cartid") != 'NaN' ){
+                            var cartTotal = localStorage.getItem("cartTotal");
+                        } else {
+                            var cartTotal = 0;
+                        }
+                        self.cartTotal = parseInt(cartTotal) + 1; //alert(self.cartTotal);
+                        localStorage.setItem("cartTotal", self.cartTotal);
                     }
-                    if(response.cart_id){
+                  /*  if(response.cart_id){
                         localStorage.setItem("cartid", response.cart_id);
                         
                           if(localStorage.getItem("cartTotal") && localStorage.getItem("cartTotal") != 'NaN' && localStorage.getItem("cartid") && localStorage.getItem("cartid") != 'NaN' ){
@@ -159,25 +168,36 @@ productCtrl = (function($rootScope,$scope,$state,productSrvc, $ionicSideMenuDele
                         $ionicLoading.hide();
                         
                         cartSrvc.showToastBanner(response.msg, "short", "center");
-                    }
+                    } */
                 }); 
 
                 $ionicHistory.nextViewOptions({
                   disableBack: true
                 });
          }
-         
-         productCtrl.prototype.showMeSearch = function(searchproducts){ 
-            window.localStorage['search'] = this.searchproducts;
-            this.state.go("app.prodListing");
-         }
+
          
          productCtrl.prototype.fetchDetail = function(product_id){
             this.state.go("app.product",{ 'product_id':product_id });
          }
 
          productCtrl.prototype.addToWishlist = function(product_id){
-            alert("Wishlist Added");
+            var customerId = localStorage.getItem('customer_id');
+
+            if(customerId && customerId != ''){
+                productSrvc.addToWishlist(product_id, customerId).then(function(response) { console.log("add to wishlist response");console.log(response);
+                    if(response.success == 1){
+                        cartSrvc.showToastBanner("Product Successfully Added To Your Wishlist.", "short", "center");
+                    } else {
+                        cartSrvc.showToastBanner("Opps ! Some Server issue.", "short", "center");
+                    }
+                    
+                });
+            } else {
+                $state.go("app.login",{ 'route': 'banner' });
+            }
+
+            
         }
 
         productCtrl.prototype.goToProductDetails = function(product_id){
@@ -190,57 +210,12 @@ productCtrl = (function($rootScope,$scope,$state,productSrvc, $ionicSideMenuDele
             } else {
                 cartSrvc.showToastBanner("Cart is empty.", "short", "center");
             }
-            
         }
 
         productCtrl.prototype.addToShare = function(){
             window.plugins.socialsharing.share(self.pdata.name, self.pdata.name, self.pdata.productimage[0].url);
         }
 
-        productCtrl.prototype.goToCompare = function(){
-            var product_one = window.localStorage.getItem('compare_product_one_id');
-            var product_two = window.localStorage.getItem('compare_product_two_id');
-            if(product_one || product_two){
-                this.state.go("app.productsCompare");
-            } else {
-                cartSrvc.showToastBanner("Please add product for compare.", "short", "center");
-            }
-            
-        }
-
-        productCtrl.prototype.removeToCampare = function(product_id){
-           
-            if(product_id){
-                var product_one = window.localStorage.getItem('compare_product_one_id');
-                var product_two = window.localStorage.getItem('compare_product_two_id');
-
-                    if(product_one == product_id){
-                        window.localStorage.removeItem('compare_product_one_id');
-
-                        if(product_two){
-                            window.localStorage.setItem('compare_product_one_id',product_two);
-
-                            window.localStorage.removeItem('compare_product_two_id');
-                        }
-
-                    } else {
-                        window.localStorage.removeItem('compare_product_two_id');
-                    }
-
-                cartSrvc.showToastBanner("Product removed successfully.", "short", "center");
-                
-                    if(product_one || product_two){
-                        
-                    } else {
-                        this.state.go("app.banner");
-                        return;
-                    }
-            } else {
-                cartSrvc.showToastBanner("Server Error.", "short", "center");
-            }
-
-            $state.reload();
-        }
 
 
         productCtrl.prototype.addToCompare = function(product_id){ 
@@ -269,7 +244,12 @@ productCtrl = (function($rootScope,$scope,$state,productSrvc, $ionicSideMenuDele
             }
 
         }
-
+        //User Popover
+          $ionicPopover.fromTemplateUrl('components/Banner/userpopover.html', {
+            scope: $scope,
+          }).then(function(popover) {
+            $scope.popover = popover;
+          });
 
     }
 

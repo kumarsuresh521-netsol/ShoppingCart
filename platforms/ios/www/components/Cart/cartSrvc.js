@@ -1,4 +1,4 @@
-var cartSrvc;
+       var cartSrvc;
 
 cartSrvc = (function($log, $http, $q, constants) {
 

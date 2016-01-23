@@ -3,8 +3,10 @@
         <a ui-sref="app.banner" href="javascript:;" ><img src="img/icon-small.png" class="appLogo"/></a>
   </ion-nav-title>
   <ion-nav-buttons side="right">
-    <div class="searchBar">
-        <i ui-sref="app.cart" class="icon ion-android-cart"><span class="badge badge-assertive cbadge" ng-if="cc.cartTotal">{{cc.cartTotal}}</span></i>
+<!-- User Section -->
+    <div class="searchBar" >
+      <i class="icon ion-android-more-vertical" ng-click="popover.show($event)" style="float:right;padding:0px 15px;"></i>
+      <i class="icon ion-android-cart" style="float:right;padding:0px 15px;"><span class="badge badge-assertive cbadge" ng-if="cc.cartTotal" style="margin-left:0px!important;">{{cc.cartTotal}}</span></i>
     </div>
 </ion-nav-buttons>
   <ion-content  padding="true" class="has-header" scroll="true">
@@ -13,15 +15,22 @@
     </div>
 <div style="width:100%; height:50px;"></div>
 <div class="cart" style="margin-bottom:20px;">
-      <div class="card" ng-repeat="x in cc.cartProducts">
-        <a class="item item-thumbnail-left" href="#" >
-              <img src="img/product2.png" ng-src="{{x.small_image}}"/>
-              <i style="float: right;" class="icon ion-trash-a" ng-click="cc.deleteProduct({{x.product_id}})"></i>
+  <div class="card" ng-hide="cc.ShowCartProducts">
+    <h4 style="text-align:center;">No Products On Cart.</h4>
+  </div>
+      <div class="card" ng-show="cc.ShowCartProducts" ng-repeat="x in cc.cartProducts">
+        <a class="item item-thumbnail-left" href="#" style="min-height:120px;">
+              <img src="img/no-thumb.png" ng-src="{{x.small_image}}"/>
+              <button style="position: absolute; margin: 75px 0 0 -100px; font-size: 12px; " class="button button-clear button-assertive" ng-click="cc.addToWishlist({{x.product_id}})"> Add to Wishlist </button>
+             <!-- <i style="position: absolute; margin: -5px 0 0 -88px; font-size: 28px;" class="icon ion-heart assertive" ng-click="cc.addToWishlist({{x.product_id}})"></i> -->
+               <i style="float: right;" class="icon ion-close" ng-click="cc.deleteProduct({{x.product_id}})"></i> 
+
+              <!-- <i style="float: right;" class="icon ion-close" ></i> -->
               <h2>{{x.name}}</h2>
               <p ng-if="x.options" ng-repeat="y in x.options"><b>{{y.label}} :</b> {{y.value | uppercase}}</p>
                 <div class="price" style="loat: LEFT; font-size: 20px;font-weight: 900;color: #6FD0D6;margin: 5px 0px 20px 0;">{{x.price | currency}}</div>
-                 <div class="pull-left" style="margin-top: 15px;">
-                    <i class="icon ion-plus icon-square" style="background: #ddd;color: #fff;padding: 8px 12px;" ng-click="cc.myquantity({{x.product_id}},'1')"></i> <span> &nbsp;&nbsp;{{x.qty}} &nbsp;&nbsp; </span> <i style="background: #ddd;color: #fff;padding: 8px 12px;" class="icon ion-minus icon-square" ng-click="cc.myquantity({{x.product_id}}, '0')"></i>
+                 <div class="pull-left cartQuantity" style="margin-top: 15px;">
+                    <i class="icon ion-plus icon-square" ng-click="cc.myquantity({{x.product_id}},'1')"></i> <span> &nbsp;{{x.qty}} &nbsp; </span> <i class="icon ion-minus icon-square" ng-click="cc.myquantity({{x.product_id}}, '0')"></i>
                     <div class="price" style="float:right; ">{{x.subTotal | currency}}</div>
                 </div>   
          </a>
@@ -29,10 +38,7 @@
 </div>
 
 <div class="list">
-  <label class="item item-input">
-    <input type="text" placeholder="Enter Your Coupan Code" ng-model="cc.coupanCode">
-  </label>
-  <button class="button button-small button-positive" ng-click="cc.ApplyCoupan();"> Apply Coupon </button>
+  <button class="button button-small button-positive" ng-click="cc.ApplyCoupan();"> Use Coupon </button>
 </div>
 
 

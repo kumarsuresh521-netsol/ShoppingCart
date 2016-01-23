@@ -2,14 +2,19 @@
     <ion-nav-title >
         <a ui-sref="app.banner" href="javascript:;" ><img src="img/icon-small.png" class="appLogo"/></a>
   </ion-nav-title>
-
+    <ion-nav-buttons side="right">
+<!-- User Section -->
+    <div class="searchBar" >
+      <i class="icon ion-android-more-vertical" ng-click="popover.show($event)" style="float:right;padding:0px 15px;"></i>
+    </div>
+</ion-nav-buttons>
   <ion-content  padding="true" class="has-header" scroll="true">
     <div class="bar bar-header bar-dark">
       <h1 class="title">Order Review</h1>
     </div>
 <div style="width:100%; height:50px;"></div>
 <div class="card" style="margin-bottom:20px;">
-      <div ng-repeat="x in por.cartProducts.products">
+      <div ng-repeat="x in por.cartProducts.products" >
         <a class="item item-thumbnail-left" href="#" >
               <img src="img/product2.png" ng-src="{{x.small_image}}"/>
               <h2>{{x.name}}</h2>
@@ -22,8 +27,8 @@
          </a>
        </div>
        <div  style="margin-top:20px;" ng-if="por.cartProducts" class="item item-text-wrap" >
-        <div ng-repeat="x in por.cartProducts" ng-if="x.title">
-          {{x.title}} <span style="float:right;">{{x.amount | currency}}</span>
+        <div ng-repeat="x in por.cartProducts" ng-if="x.title" style="width:100%;">
+          <span style="float:left;width:80%;">{{x.title}}</span> <span style="float:right;width:20%;">{{x.amount | currency}}</span>
         </div>
       </div>
 </div>

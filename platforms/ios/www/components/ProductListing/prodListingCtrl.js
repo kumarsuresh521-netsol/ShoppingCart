@@ -2,10 +2,10 @@ var prodListingCtrl;
 
 
 
-prodListingCtrl = (function($rootScope, $scope, $state, $ionicLoading, prodListingSrvc) {
+prodListingCtrl = (function($rootScope, $scope, $state, $ionicLoading, prodListingSrvc, $ionicPopover, cartSrvc, bannerSrvc) {
 
-	function prodListingCtrl($rootScope,  $scope, prodListingSrvc , $state , $stateParams, $ionicLoading) {
-        $ionicLoading.show();
+	function prodListingCtrl($rootScope,  $scope, prodListingSrvc , $state , $stateParams, $ionicLoading, $ionicPopover, cartSrvc, bannerSrvc) {
+        
         this.state = $state;
         var self = this;
         this.showMe = false;
@@ -15,7 +15,7 @@ prodListingCtrl = (function($rootScope, $scope, $state, $ionicLoading, prodListi
         this.colorShow = false;
         this.priceShow = true;
 
-        //this.scope.$on('$ionicView.beforeEnter', function () {
+        self.ShowProducts = true;
 
         this.searchproducts = $rootScope.srch;
 
@@ -26,29 +26,114 @@ prodListingCtrl = (function($rootScope, $scope, $state, $ionicLoading, prodListi
             self.cartTotal = '0';
         }
             
-            if($stateParams.category_id){ console.log($stateParams);
+            if($stateParams.category_id == "filter"){ alert("new");
+            $ionicLoading.show();
+      
+                var OptionsValue = $stateParams.category_name; console.log(OptionsValue);
+                var filterOptions = OptionsValue.split(',');
+                
+            //New Products Listing....
+
+              var category_name = filterOptions[0];
+              var category_id = filterOptions[1];
+
+              if(filterOptions[2] && filterOptions[2] != 'undefined' && filterOptions[2] != ''){
+                var color = filterOptions[2];
+              }
+
+              if(filterOptions[3] && filterOptions[3] != 'undefined' && filterOptions[3] != ''){
+                var manufecturer = filterOptions[3];
+              }
+
+              if(filterOptions[4] && filterOptions[4] != 'undefined' && filterOptions[4] != ''){
+                //var price_range  = filterOptions[4].replace('$','');
+                //var price  = price_range.replace('$','');
+                var price = filterOptions[4];
+              }
+
+                prodListingSrvc.getFilterData(category_id, color, manufecturer, price).then(function(response) { console.log(response);
+                  if(response.success == 1 && response.data.products.length > 0){
+                      self.prodListing = response.data.products;
+                      self.ShowProducts = true;
+                  } else { 
+                    self.ShowProducts = false; 
+                    //return;
+                  }
+                    
+                    self.category_id = category_id;
+                    self.categoryHeading = category_name;
+                }).finally(function(){
+                    $ionicLoading.hide();
+                });
+            } else if($stateParams.category_id == "new"){ //alert("new");
+            $ionicLoading.show();
+                var category_name = $stateParams.category_name;
+            //New Products Listing....
+                bannerSrvc.getBdataSecond().then(function(response) {
+                    if(response.length > 0){
+                      self.prodListing = response;
+                      self.ShowProducts = true;
+                    } else { 
+                      self.ShowProducts = false; 
+                      //return;
+                    }
+                    
+                    self.categoryHeading = category_name;
+                }).finally(function(){
+                  $ionicLoading.hide();
+                });
+            } else if($stateParams.category_id == "special"){ //alert("special");
+            $ionicLoading.show();
+                var category_name = $stateParams.category_name;
+            //Special Products Listing....
+                bannerSrvc.getBdataSpecial().then(function(response) {
+                    if(response.length > 0){
+                      self.prodListing = response;
+                      self.ShowProducts = true;
+                    } else { 
+                      self.ShowProducts = false; 
+                      //return;
+                    }
+                    
+                    self.categoryHeading = category_name;
+                }).finally(function(){
+                  $ionicLoading.hide();
+                });
+            } else if($stateParams.category_id){ // alert("other");
+            $ionicLoading.show();
                 var category_id = $stateParams.category_id;
                 var category_name = $stateParams.category_name;
-            }
+            
           
-            prodListingSrvc.getCdata(category_id).then(function(response) {
-                self.prodListing = response ;
-                self.categoryHeading = category_name;
-            }).finally(function(){
-                $ionicLoading.hide();
-            });
-       // });
-       
-
-    
+                prodListingSrvc.getCdata(category_id).then(function(response) { console.log(response);
+                  if(response.success == 1 && response.data.products.length > 0){
+                      self.prodListing = response.data.products;
+                      self.ShowProducts = true;
+                  } else { 
+                    self.ShowProducts = false; 
+                    //return;
+                  }
+                    
+                    self.category_id = category_id;
+                    self.categoryHeading = category_name;
+                }).finally(function(){
+                    $ionicLoading.hide();
+                });
+           } else {
+              //this.state.go("app.banner");
+           }
     
   
+    prodListingCtrl.prototype.goToFilters = function(category_id){
+			this.state.go("app.filter",{category_id:category_id,category_name:category_name});
+    }
+
     prodListingCtrl.prototype.showMeSearch = function(){
-			if(this.showMe == false){ 
-				this.showMe = true;
-			} else {
-				this.showMe = false;
-			}
+      if(this.showMe == false){ 
+        this.showMe = true;
+      } else {
+        this.showMe = false;
+      }
     }
 
     prodListingCtrl.prototype.showMeSelect = function(){
@@ -78,8 +163,8 @@ prodListingCtrl = (function($rootScope, $scope, $state, $ionicLoading, prodListi
    }
 
    prodListingCtrl.prototype.showList = function(){
-        console.log(this.showMe);
-        console.log(this.priceShow);
+        //console.log(this.showMe);
+        //console.log(this.priceShow);
 
       if(this.showMe == false && this.priceShow == true){
 
@@ -94,33 +179,22 @@ prodListingCtrl = (function($rootScope, $scope, $state, $ionicLoading, prodListi
       }
     }
 
-  prodListingCtrl.prototype.showPrice = function(){
-     console.log(this.showMe);
-     console.log(this.priceShow);
-    if(this.showMe == true && this.priceShow == false){
+ 
+        // Go To Cart
+        prodListingCtrl.prototype.goToCart = function(){
+            if(self.cartTotal > 0){
+                this.state.go("app.cart");
+            } else {
+                cartSrvc.showToastBanner("Cart is empty.", "short", "center");
+            }
+        }
 
-      this.showMe = false;
-      this.priceShow = true;
-      this.colorShow = false;
-      
-    }else if (this.showMe == false && this.priceShow == false){
-
-        this.colorShow = false;
-        this.priceShow  = true;
-    }
-  }  
-
-  prodListingCtrl.prototype.showColor = function(){
-    console.log(this.showMe);
-        console.log(this.priceShow);
-    if(this.showMe == true || this.priceShow == true && this.colorShow == false){
-
-      this.showMe = false;
-      this.priceShow = false;
-      this.colorShow = true;
-      
-    }
-  }
+  //User Popover
+          $ionicPopover.fromTemplateUrl('components/Banner/userpopover.html', {
+            scope: $scope,
+          }).then(function(popover) {
+            $scope.popover = popover;
+          });
 }
 
 

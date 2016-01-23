@@ -20,26 +20,13 @@
   </ion-header-bar>  
   
   <ion-content class="sidenav" padding="true" scroll="false" class="has-header" style="background: #fff;">
-    <ion-list ng-repeat="x in mc.youcategories" ng-if="x.parent_id == 2">
+    <ion-list ng-repeat="x in mc.youcategories" ng-if="x.level == 2">
         <a href="javascript:;" style="text-decoration:none;"> 
           <ion-item menu-close ng-click="mc.getSub($index, {{x.position}}, {{x.category_id}}, '{{x.name}}')" class="item-icon-right">
             {{x.name | uppercase}}  <span class="badge badge-dark" ng-if="x.product_totalcount">{{x.product_totalcount}}</span>
          </ion-item>
         </a>
-    </ion-list>    
- <!--   
-    <div class="space"></div>
-      <ion-list>
-        <ion-item   menu-close class="sideicon"  ng-click="mc.nav('app.setting')">
-            <i class="icon ion-gear-a"></i><br />
-              SETTINGS
-        </ion-item>
-        <ion-item  menu-close class="sideicon">
-            <a href="javascript:;" ng-click="mc.LogOut()"><i class="icon ion-log-out"></i></a><br />
-              LOG OUT
-        </ion-item> 
-      </ion-list>
--->
+    </ion-list>
     </ion-content>
   
     </ion-side-menu>

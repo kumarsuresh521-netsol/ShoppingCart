@@ -1,9 +1,9 @@
 var paymentCtrl;
 
-paymentCtrl = (function($scope,$ionicSideMenuDelegate,$state, cartSrvc, checkoutSrvc, $ionicLoading) {
+paymentCtrl = (function($scope,$ionicSideMenuDelegate,$state, cartSrvc, checkoutSrvc, $ionicLoading, $ionicPopover) {
 
-    function paymentCtrl($scope,$state,cartSrvc, checkoutSrvc, $ionicLoading) { //console.log("$scope"); console.log($scope);
-        
+    function paymentCtrl($scope,$state,cartSrvc, checkoutSrvc, $ionicLoading, $ionicPopover) { //console.log("$scope"); console.log($scope);
+        $ionicLoading.show();
         this.state = $state;
         var self = this;
         
@@ -17,12 +17,15 @@ paymentCtrl = (function($scope,$ionicSideMenuDelegate,$state, cartSrvc, checkout
         var customerId = localStorage.getItem("customer_id");
 
         
-            $ionicLoading.show();
+            
             checkoutSrvc.getUserCheckoutMethods(cartid).then(function(response) { //console.log(" payment....");console.log(response);
-                self.shippingMethod = {};
-                self.paymentMethod = {};
-                self.shippingMethod = response.shipping_methods;
-                self.paymentMethod = response.payment_methods;
+                if(response.success == 1){
+                    self.shippingMethod = {};
+                    self.paymentMethod = {};
+                    self.shippingMethod = response.data.shipping_methods;
+                    self.paymentMethod = response.data.payment_methods;
+                }
+                
 
             }).finally(function(){
                 $ionicLoading.hide();   
@@ -51,7 +54,12 @@ paymentCtrl = (function($scope,$ionicSideMenuDelegate,$state, cartSrvc, checkout
                 $state.go("app.orderreview");
             });        
         }
-
+           //User Popover
+          $ionicPopover.fromTemplateUrl('components/Banner/userpopover.html', {
+            scope: $scope,
+          }).then(function(popover) {
+            $scope.popover = popover;
+          });
     }
     return paymentCtrl;
 })();

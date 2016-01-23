@@ -128,11 +128,13 @@ text-decoration: initial;
 
 .nav-bar-title img{
     width:25px;
-    margin:8px 0;
+    margin:5px 0;
 }
 
 .bar .title.title-left {
     text-align: center;
+        left: 0px !important;
+    right: 0px !important;
 }
 /* Side Menu */
 

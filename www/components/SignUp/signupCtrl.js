@@ -13,7 +13,7 @@ signupCtrl = (function($rootScope,$scope,signupSrvc, $state, $ionicSideMenuDeleg
         this.ShowPassword = 'password';
 
 
-        signupCtrl.prototype.userSignUp = function() {
+        signupCtrl.prototype.userSignUp = function() { 
             if(!this.user.firstname){
                 this.signupSrvc.showToastBanner("Please enter first name.", "short", "center");
                 return;

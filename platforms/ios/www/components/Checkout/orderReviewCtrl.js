@@ -1,8 +1,8 @@
 var orderReviewCtrl;
 
-orderReviewCtrl = (function($scope,$ionicSideMenuDelegate,$state, cartSrvc, checkoutSrvc, $ionicLoading) {
+orderReviewCtrl = (function($scope,$ionicSideMenuDelegate,$state, cartSrvc, checkoutSrvc, $ionicLoading, $ionicPopover) {
 
-    function orderReviewCtrl($scope,$state,cartSrvc, checkoutSrvc, $ionicLoading) { //console.log("$scope"); console.log($scope);
+    function orderReviewCtrl($scope,$state,cartSrvc, checkoutSrvc, $ionicLoading, $ionicPopover) { //console.log("$scope"); console.log($scope);
         
         this.state = $state;
         var self = this;
@@ -29,10 +29,18 @@ orderReviewCtrl = (function($scope,$ionicSideMenuDelegate,$state, cartSrvc, chec
             checkoutSrvc.placeOrder(cartid).then(function(response) {
                console.log("order placed"); console.log(response);
                $ionicLoading.hide();
+               localStorage.removeItem("cartTotal");
+               localStorage.removeItem("cartid");
                 cartSrvc.showToastBanner("Your Order is placed successfully.", "short", "center");
                 $state.go("app.success", {"order_id":response.order_id}); 
             });
         }
+        //User Popover
+          $ionicPopover.fromTemplateUrl('components/Banner/userpopover.html', {
+            scope: $scope,
+          }).then(function(popover) {
+            $scope.popover = popover;
+          });
     }
     return orderReviewCtrl;
 })();

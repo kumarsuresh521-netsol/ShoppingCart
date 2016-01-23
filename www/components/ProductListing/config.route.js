@@ -17,7 +17,7 @@
 
                 .state('app.filter', {
                     cache: 'false',
-                    url: '/filter',
+                    url: '/filter/:category_id/:category_name',
                     views: {
                     'menuContent' :{
                         templateUrl: 'components/ProductListing/filter.html'

@@ -4,13 +4,13 @@ var finalState;
 loginCtrl = (function($state, $ionicHistory, $stateParams, $ionicLoading, $rootScope,$timeout,$scope, signupSrvc, $ionicSideMenuDelegate) {
 
     function loginCtrl($rootScope,loginSrvc,$state,$stateParams,$ionicLoading, $timeout,$scope, signupSrvc, $ionicSideMenuDelegate) {
-        
+        //alert(localStorage.getItem("customer_id"));
         if(localStorage.getItem("customer_id") && localStorage.getItem("customer_id") != '' && localStorage.getItem("customer_id") != null && localStorage.getItem("customer_id") != undefined){  
             $state.go("app.banner");
             return;
         } 
 
-        if($stateParams.route){
+        if($stateParams.route && $stateParams.route != 'login'){
           var path = $stateParams.route; 
         } else {
           var path = 'banner';
@@ -51,7 +51,7 @@ loginCtrl = (function($state, $ionicHistory, $stateParams, $ionicLoading, $rootS
                this.loginSrvc.chkLogin(this.user.username, this.user.password).then(function(response) {
                 $ionicLoading.hide();
                    if(response.error == '0'){
-                      alert("Login Successfull.");
+                      //alert("Login Successfull.");
                       /*$rootScope.globals = {};
                       $rootScope.globals = {
                         currentUser: {

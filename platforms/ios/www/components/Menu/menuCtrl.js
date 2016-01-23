@@ -3,7 +3,7 @@ var menuCtrl;
 menuCtrl = (function($state ,$rootScope,$scope,$timeout, $ionicLoading, menuSrvc) {
 
     
-    function menuCtrl($scope , $rootScope,  homeSrvc , $state,$timeout, $ionicLoading, menuSrvc) {
+    function menuCtrl($scope , $rootScope , $state,$timeout, $ionicLoading, menuSrvc) {
 //console.log($scope); 
         this.state = $state ;
         this.menuSrvc= menuSrvc;
@@ -17,7 +17,7 @@ menuCtrl = (function($state ,$rootScope,$scope,$timeout, $ionicLoading, menuSrvc
         }
 
         $ionicLoading.show();
-        self.menuSrvc.getCategories().then(function(response) {
+        self.menuSrvc.getCategories().then(function(response) { console.log(response);
             //menushowCat(response);
             self.youcategories = response;
         }).finally(function(){
@@ -26,7 +26,7 @@ menuCtrl = (function($state ,$rootScope,$scope,$timeout, $ionicLoading, menuSrvc
 
         var i = 0;
 
-        function menushowCat(response){
+        function menushowCat(response){ console.log(response);
             if(response.length > 0 ){
                 if(response[i]){
                     if(response[i].parent_id == 2){
@@ -48,7 +48,7 @@ menuCtrl = (function($state ,$rootScope,$scope,$timeout, $ionicLoading, menuSrvc
             }
 
             if (myarray[index].children_count > 0){
-                self.state.go("app.home", {position_id:position_id});
+                self.state.go("app.home",{'category_id':category_id, 'category_name':category_name});
             } else {
               self.state.go("app.prodListing", {'category_id':category_id, 'category_name':category_name});
             }

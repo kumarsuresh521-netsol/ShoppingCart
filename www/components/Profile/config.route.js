@@ -40,5 +40,14 @@
                          }
                     }
                 })
+
+                .state('app.myorderdetail', {
+                    url: '/myorderdetail:orderId',
+                    views: {
+                        'menuContent' :{
+                            templateUrl: 'components/Profile/myorderdetail.html'
+                         }
+                    }
+                })
         });
 })();

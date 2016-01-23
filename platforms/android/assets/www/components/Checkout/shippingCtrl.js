@@ -1,9 +1,9 @@
 var shippingCtrl;
 
-shippingCtrl = (function($scope,$ionicSideMenuDelegate,$state, cartSrvc, checkoutSrvc, $ionicLoading) {
+shippingCtrl = (function($scope,$ionicSideMenuDelegate,$state, cartSrvc, checkoutSrvc, $ionicLoading, $ionicPopover) {
 
-    function shippingCtrl($scope,$state,cartSrvc, checkoutSrvc, $ionicLoading) { //console.log("$scope"); console.log($scope);
-        
+    function shippingCtrl($scope,$state,cartSrvc, checkoutSrvc, $ionicLoading, $ionicPopover) { //console.log("$scope"); console.log($scope);
+        $ionicLoading.show();
         this.state = $state;
         var self = this;
         self.paymentm = {};  
@@ -24,60 +24,56 @@ shippingCtrl = (function($scope,$ionicSideMenuDelegate,$state, cartSrvc, checkou
 
         var customerId = localStorage.getItem("customer_id");
 
-                    $ionicLoading.show();
+             
             checkoutSrvc.getUserShippingData(customerId, cartid).then(function(response) { //console.log(" shipping....");console.log(response);  
-                self.shipping = {};
-                self.shipping.fname = response.shipping.firstname;
-                self.shipping.lname = response.shipping.lastname;
-                self.shipping.address1 = response.shipping.street1;
-                self.shipping.address2 = response.shipping.street2;
-                self.shipping.city = response.shipping.city;
-                self.shipping.state = response.shipping.region;
-                self.shipping.countary = response.shipping.country_name;
-                self.shipping.pincode = response.shipping.postcode;
-                self.shipping.phone = response.shipping.telephone;
+                if(response.success == 1){
+                    self.shipping = response.data;
+                    self.shipping.shipping.telephone = parseInt(response.data.shipping.telephone);
+                }
+                
             }).finally(function(){
                 $ionicLoading.hide();
             });
 
 //Shipping.html Shipping Infomation
          shippingCtrl.prototype.ShippingInfo = function(){// alert("Shipping");
-            var fname = self.shipping.fname;
-            var lname = self.shipping.lname;
-            var address1 = self.shipping.address1;
-            var address2 = self.shipping.address2;
-            var city = self.shipping.city;
-            var state = self.shipping.state;
-            var country = self.shipping.country;
-            var pincode = self.shipping.pincode;
-            var phone = self.shipping.phone;
-            
-            if(!fname){
+            var firstname = self.shipping.shipping.firstname;
+            var lastname = self.shipping.shipping.lastname;
+            var street1 = self.shipping.shipping.street1;
+            var street2 = self.shipping.shipping.street2;
+            var city = self.shipping.shipping.city;
+            var region = self.shipping.shipping.region;
+            var country_id = self.shipping.shipping.country_id;
+            var country_name = self.shipping.shipping.country_name;
+            var postcode = self.shipping.shipping.postcode;
+            var telephone = self.shipping.shipping.telephone;
+
+            if(!firstname){
                 cartSrvc.showToastBanner("First Name is required.", "short", "center");
                 return;
             }
 
-            if(fname.length < 3){
+            if(firstname.length < 3){
                 cartSrvc.showToastBanner("First Name is too short.", "short", "center");
                 return;
             }
 
-            if(fname > 16){
+            if(firstname > 16){
                 cartSrvc.showToastBanner("First Name too long.", "short", "center");
                 return;
             }
 
-            if(lname > 16){
+            if(lastname > 16){
                 cartSrvc.showToastBanner("Last Name is required.", "short", "center");
                 return;
             }
             
-            if(!address1){
+            if(!street1){
                 cartSrvc.showToastBanner("Address is required.", "short", "center");
                 return;
             }
 
-            if(!address2){
+            if(!street2){
                 cartSrvc.showToastBanner("Address 2 is required.", "short", "center");
                 return;
             }
@@ -87,36 +83,37 @@ shippingCtrl = (function($scope,$ionicSideMenuDelegate,$state, cartSrvc, checkou
                 return;
             }
 
-            if(!state){
+            if(!region){
                 cartSrvc.showToastBanner("State is required.", "short", "center");
                 return;
             }
             
-            if(!country){
+            if(!country_name){
                 cartSrvc.showToastBanner("Country is required.", "short", "center");
                 return;
             }
 
-            if(!pincode){
+            if(!postcode){
                 cartSrvc.showToastBanner("Pincode is required.", "short", "center");
                 return;
             }
 
-            if(!phone){
+            if(!telephone){
                 cartSrvc.showToastBanner("Phone Number is required.", "short", "center");
                 return;
             }
-
             shippingDetails = {
-                'name': fname,
-                'lname': lname,
-                'address1': address1,
-                'address2': address2,
+                'firstname': firstname,
+                'lastname': lastname,
+                'street1': street1,
+                'street2': street2,
                 'city': city,
-                'state': state,
-                'country': country,
-                'pincode': pincode,
-                'phone': phone
+                'region_id':'0',
+                'region': region,
+                "country_id":country_id,
+                "country_name":country_name,
+                'postcode': postcode,
+                'telephone': telephone
             }
             
             $ionicLoading.show(); //console.log("shipping d");console.log(shippingDetails);
@@ -128,6 +125,12 @@ shippingCtrl = (function($scope,$ionicSideMenuDelegate,$state, cartSrvc, checkou
             });
             
          }
+                  //User Popover
+          $ionicPopover.fromTemplateUrl('components/Banner/userpopover.html', {
+            scope: $scope,
+          }).then(function(popover) {
+            $scope.popover = popover;
+          });
      }
     
     return shippingCtrl;

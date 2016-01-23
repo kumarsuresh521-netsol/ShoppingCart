@@ -2,7 +2,12 @@
     <ion-nav-title >
         <a ui-sref="app.banner" href="javascript:;" ><img src="img/icon-small.png" class="appLogo"/></a>
   </ion-nav-title>
-
+    <ion-nav-buttons side="right">
+<!-- User Section -->
+    <div class="searchBar" >
+      <i class="icon ion-android-more-vertical" ng-click="popover.show($event)" style="float:right;padding:0px 15px;"></i>
+    </div>
+</ion-nav-buttons>
   <ion-content>
     <div class="bar bar-header bar-dark">
       <h1 class="title">SHIPPING/PAYMENT METHOD</h1>
