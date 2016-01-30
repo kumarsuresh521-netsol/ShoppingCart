@@ -2,7 +2,7 @@ var shippingCtrl;
 
 shippingCtrl = (function($scope,$ionicSideMenuDelegate,$state, cartSrvc, checkoutSrvc, $ionicLoading, $ionicPopover) {
 
-    function shippingCtrl($scope,$state,cartSrvc, checkoutSrvc, $ionicLoading, $ionicPopover) { //console.log("$scope"); console.log($scope);
+    function shippingCtrl($scope,$state,cartSrvc, checkoutSrvc, $ionicLoading, $ionicPopover) { ////console.log("$scope"); //console.log($scope);
         $ionicLoading.show();
         this.state = $state;
         var self = this;
@@ -25,7 +25,7 @@ shippingCtrl = (function($scope,$ionicSideMenuDelegate,$state, cartSrvc, checkou
         var customerId = localStorage.getItem("customer_id");
 
              
-            checkoutSrvc.getUserShippingData(customerId, cartid).then(function(response) { //console.log(" shipping....");console.log(response);  
+            checkoutSrvc.getUserShippingData(customerId, cartid).then(function(response) { //console.log(" shipping....");//console.log(response);  
                 if(response.success == 1){
                     self.shipping = response.data;
                     self.shipping.shipping.telephone = parseInt(response.data.shipping.telephone);
@@ -116,9 +116,9 @@ shippingCtrl = (function($scope,$ionicSideMenuDelegate,$state, cartSrvc, checkou
                 'telephone': telephone
             }
             
-            $ionicLoading.show(); //console.log("shipping d");console.log(shippingDetails);
+            $ionicLoading.show(); ////console.log("shipping d");//console.log(shippingDetails);
             checkoutSrvc.updateUserShippingData(customerId, shippingDetails).then(function(response) {
-               console.log("shipping update"); //console.log(response);
+               //console.log("shipping update"); ////console.log(response);
             }).finally(function(){
                 $ionicLoading.hide();
                 $state.go("app.payment");

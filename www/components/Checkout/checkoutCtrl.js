@@ -2,7 +2,7 @@ var checkoutCtrl;
 
 checkoutCtrl = (function($scope,$ionicSideMenuDelegate,$state, cartSrvc, checkoutSrvc, $ionicLoading, $ionicPopover) {
 
-    function checkoutCtrl($scope,$state,cartSrvc, checkoutSrvc, $ionicLoading, $ionicPopover) { //console.log("$scope"); console.log($scope);
+    function checkoutCtrl($scope,$state,cartSrvc, checkoutSrvc, $ionicLoading, $ionicPopover) { //////console.log("$scope"); ////console.log($scope);
         
         this.state = $state;
         var self = this;
@@ -17,9 +17,9 @@ checkoutCtrl = (function($scope,$ionicSideMenuDelegate,$state, cartSrvc, checkou
         var customerId = localStorage.getItem("customer_id");
         
             $ionicLoading.show();
-            checkoutSrvc.getUserBillingData(customerId, cartid).then(function(response) {//console.log(" billing123...."); console.log(response);
+            checkoutSrvc.getUserBillingData(customerId, cartid).then(function(response) {//////console.log(" billing123...."); ////console.log(response);
                 if(response.success == 1){
-                    self.billing = response.data; //console.log(self.billing);
+                    self.billing = response.data; //////console.log(self.billing);
                     self.billing.shipping.telephone = parseInt(response.data.shipping.telephone);
                 }
                 
@@ -28,7 +28,7 @@ checkoutCtrl = (function($scope,$ionicSideMenuDelegate,$state, cartSrvc, checkou
             });
         
 //Checkout.html Billing Infomation
-         checkoutCtrl.prototype.BillingInfo = function(){ console.log("billing countinue button on click");console.log(self.billing.shipping);
+         checkoutCtrl.prototype.BillingInfo = function(){ ////console.log("billing countinue button on click");////console.log(self.billing.shipping);
             var firstname = self.billing.shipping.firstname;
             var lastname = self.billing.shipping.lastname;
             var street1 = self.billing.shipping.street1;
@@ -108,9 +108,9 @@ checkoutCtrl = (function($scope,$ionicSideMenuDelegate,$state, cartSrvc, checkou
                 'telephone': telephone
             }
             
-            $ionicLoading.show(); //console.log("billing d");console.log(billingDetails);
+            $ionicLoading.show(); //////console.log("billing d");////console.log(billingDetails);
             checkoutSrvc.updateUserBillingData(customerId, cartid, billingDetails).then(function(response) {
-               console.log("billing update"); console.log(response); console.log("billing update"); 
+               ////console.log("billing update"); ////console.log(response); ////console.log("billing update"); 
             }).finally(function(){
                 $ionicLoading.hide();
                 $state.go("app.shipping");

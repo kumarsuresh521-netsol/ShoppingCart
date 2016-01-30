@@ -19,14 +19,12 @@ orderCtrl = (function($state,$rootScope, $scope, profileSrvc, cartSrvc, $ionicLo
             self.cartTotal = 0;
         }
     
-        profileSrvc.getMyOrder(customer_id).then(function(response) { console.log("order response"); console.log(response);
+        profileSrvc.getMyOrder(customer_id).then(function(response) { //console.log("order response"); //console.log(response);
             if(response.success == 1 && response.orders.length > 0){
                 self.orderInfo = response.orders;
-               self.isrecords = true;
+                this.showMe = true;
             } else {
-                self.isrecords = false;
-                cartSrvc.showToastBanner("No Record Found.", "long", "center");
-                return;
+                this.showMe = false;
             }
             
         }).finally(function(){

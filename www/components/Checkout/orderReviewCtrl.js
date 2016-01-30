@@ -2,7 +2,7 @@ var orderReviewCtrl;
 
 orderReviewCtrl = (function($scope,$ionicSideMenuDelegate,$state, cartSrvc, checkoutSrvc, $ionicLoading, $ionicPopover) {
 
-    function orderReviewCtrl($scope,$state,cartSrvc, checkoutSrvc, $ionicLoading, $ionicPopover) { //console.log("$scope"); console.log($scope);
+    function orderReviewCtrl($scope,$state,cartSrvc, checkoutSrvc, $ionicLoading, $ionicPopover) { //////console.log("$scope"); ////console.log($scope);
         
         this.state = $state;
         var self = this;
@@ -17,7 +17,7 @@ orderReviewCtrl = (function($scope,$ionicSideMenuDelegate,$state, cartSrvc, chec
         var customerId = localStorage.getItem("customer_id");
 
             $ionicLoading.show();
-            cartSrvc.getCartProducts(cartid).then(function(response) { console.log(response);
+            cartSrvc.getCartProducts(cartid).then(function(response) { ////console.log(response);
                     self.cartProducts = response;
              }).finally(function(){
                 $ionicLoading.hide();
@@ -27,7 +27,7 @@ orderReviewCtrl = (function($scope,$ionicSideMenuDelegate,$state, cartSrvc, chec
         orderReviewCtrl.prototype.GoToSuccess = function(){
             $ionicLoading.show();          
             checkoutSrvc.placeOrder(cartid).then(function(response) {
-               console.log("order placed"); console.log(response);
+               ////console.log("order placed"); ////console.log(response);
                $ionicLoading.hide();
                localStorage.removeItem("cartTotal");
                localStorage.removeItem("cartid");

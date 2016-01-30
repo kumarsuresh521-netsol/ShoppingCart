@@ -13,11 +13,11 @@ profileCtrl = (function($state, $stateParams,$rootScope, $scope, profileSrvc, ca
 
         var customer_id = localStorage.getItem('customer_id');
         
-        if(localStorage.getItem("cartTotal") && localStorage.getItem("cartid")){
-            self.cartTotal = localStorage.getItem("cartTotal");    
-        } else {
-            self.cartTotal = 0;
-        }
+        if(localStorage.getItem("cartTotal") && localStorage.getItem("cartTotal") != 'NaN' && localStorage.getItem("cartid") && localStorage.getItem("cartid") != 'NaN' ){
+                self.cartTotal = localStorage.getItem("cartTotal");    
+            } else {
+                self.cartTotal = '0';
+            }
         
         profileSrvc.getProfile(customer_id).then(function(response) { console.log("profile response"); console.log(response);
             if(response.success == 1){

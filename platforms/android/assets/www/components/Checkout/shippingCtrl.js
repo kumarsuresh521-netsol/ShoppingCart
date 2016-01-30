@@ -25,7 +25,7 @@ shippingCtrl = (function($scope,$ionicSideMenuDelegate,$state, cartSrvc, checkou
         var customerId = localStorage.getItem("customer_id");
 
              
-            checkoutSrvc.getUserShippingData(customerId, cartid).then(function(response) { //console.log(" shipping....");console.log(response);  
+            checkoutSrvc.getUserShippingData(customerId, cartid).then(function(response) { console.log(" shipping....");console.log(response);  
                 if(response.success == 1){
                     self.shipping = response.data;
                     self.shipping.shipping.telephone = parseInt(response.data.shipping.telephone);

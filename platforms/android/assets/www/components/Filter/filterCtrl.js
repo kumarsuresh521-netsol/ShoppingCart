@@ -67,8 +67,7 @@ filterCtrl = (function($rootScope,$scope,$ionicSideMenuDelegate,$state) {
       
     }
   }
-
-    }
+}
 
 
     return filterCtrl;

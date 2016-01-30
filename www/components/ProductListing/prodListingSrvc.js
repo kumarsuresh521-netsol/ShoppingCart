@@ -14,7 +14,7 @@ prodListingSrvc = (function($log, $http, $q, constants) {
         
             var deferred;
             //$log.debug("get globalCompanyFields service");
-            //console.log(username);
+            ////console.log(username);
             deferred = pc.$q.defer();
            // $http.post('http://localhost:8025/magento_1.9/index.php/phonegapapp/categories/categoryDetail/', {
                 $http.post(constants.API_URL+'categories/getAllProducts', {
@@ -40,7 +40,7 @@ prodListingSrvc = (function($log, $http, $q, constants) {
         
             var deferred;
             //$log.debug("get globalCompanyFields service");
-            //console.log(username);
+            ////console.log(username);
             deferred = pc.$q.defer();
            // $http.post('http://localhost:8025/magento_1.9/index.php/phonegapapp/categories/categoryDetail/', {
                 $http.post(constants.API_URL+'categories/getAllProducts', {

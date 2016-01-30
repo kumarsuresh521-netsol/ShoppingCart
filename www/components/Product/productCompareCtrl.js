@@ -19,7 +19,7 @@ productCompareCtrl = (function($rootScope,$scope,$state,productSrvc, $ionicSideM
              var product_one = window.localStorage.getItem('compare_product_one_id');
              $ionicLoading.show();
              if(product_one && product_one != 'NULL'){
-                productSrvc.getData(product_one).then(function(response) { console.log('product_one');console.log(response);
+                productSrvc.getData(product_one).then(function(response) { //console.log('product_one');//console.log(response);
                     self.pCOData = response;
                     if(self.pCOData.special_price){
                         self.pCOData.discount = (1 - (self.pCOData.special_price / self.pCOData.price)) * 100;
@@ -32,7 +32,7 @@ productCompareCtrl = (function($rootScope,$scope,$state,productSrvc, $ionicSideM
              var product_two = window.localStorage.getItem('compare_product_two_id');
              $ionicLoading.show();
              if(product_two && product_two != 'NULL'){
-                productSrvc.getData(product_two).then(function(response) { console.log('response');console.log(response);
+                productSrvc.getData(product_two).then(function(response) { //console.log('response');//console.log(response);
                     self.pCTData = response;
                     if(self.pCTData.special_price){
                         self.pCTData.discount = (1 - (self.pCTData.special_price / self.pCTData.price)) * 100;
@@ -51,7 +51,7 @@ productCompareCtrl = (function($rootScope,$scope,$state,productSrvc, $ionicSideM
             var customerId = localStorage.getItem('customer_id');
 
             if(customerId && customerId != ''){
-                productSrvc.addToWishlist(product_id, customerId).then(function(response) { console.log("add to wishlist response");console.log(response);
+                productSrvc.addToWishlist(product_id, customerId).then(function(response) { //console.log("add to wishlist response");//console.log(response);
                     if(response.success == 1){
                         cartSrvc.showToastBanner("Product Successfully Added To Your Wishlist.", "short", "center");
                     } else {

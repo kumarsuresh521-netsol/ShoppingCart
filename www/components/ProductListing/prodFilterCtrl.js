@@ -20,7 +20,7 @@ prodFilterCtrl = (function($rootScope, $scope, $state, $ionicLoading, prodListin
         self.ShowProducts = true;
 
         this.searchproducts = $rootScope.srch;
-console.log($stateParams);
+////console.log($stateParams);
         if($stateParams.category_id){
           
           var category_id = $stateParams.category_id;
@@ -68,7 +68,7 @@ console.log($stateParams);
           }
     }
 
-    prodFilterCtrl.prototype.filterDone = function(){ //alert("done"); console.log(this);
+    prodFilterCtrl.prototype.filterDone = function(){ //alert("done"); //console.log(this);
       var OptionsValue = [];
       var price = [];
 
@@ -76,12 +76,17 @@ console.log($stateParams);
         angular.forEach(this.price.p, function(value, key) {
           if(key != 'undefined'){
             var price1 = key.replace("$",'');
-            var price2 = price1.replace("$",'');
-            price.push(price2); 
+            var price2 = price1.replace("$",''); //alert(price2);
+            var price3 = price2.replace(" and above",'-');
+            var price4 = price3.replace(" ",'');
+            var price5 = price4.replace(" ",'');
+            var price6 = price5.replace(" ",'');
+
+            price.push(price6); 
           }
         });
       }
-       //console.log(price);
+       ////console.log(price);
 
       var color = [];
 
@@ -95,7 +100,7 @@ console.log($stateParams);
           
         });
       }
-       //console.log(color);
+       ////console.log(color);
 
       var manufacturer = [];
 
@@ -109,14 +114,15 @@ console.log($stateParams);
           
         });
       }
-
-      localStorage.setItem("OptionsValuePrice",price); //console.log(localStorage.getItem("OptionsValuePrice"));
-      localStorage.setItem("OptionsValueColor",color); //console.log(localStorage.getItem("OptionsValueColor"));
-      localStorage.setItem("OptionsValueManufacturer",manufacturer); //console.log(localStorage.getItem("OptionsValueManufacturer"));
-      localStorage.setItem("OptionsValueCategoryId",category_id); //console.log(localStorage.getItem("OptionsValueCategoryId"));
-     // var filtersValue = category_name+","+category_id+","+this.color+","+this.manufacturer+","+this.price; console.log(filtersValue);
+    //  //console.log("price"); //console.log(price);
+////console.log(localStorage.getItem("OptionsValuePrice"));
+      localStorage.setItem("OptionsValuePrice",price); ////console.log(localStorage.getItem("OptionsValuePrice"));
+      localStorage.setItem("OptionsValueColor",color); ////console.log(localStorage.getItem("OptionsValueColor"));
+      localStorage.setItem("OptionsValueManufacturer",manufacturer); ////console.log(localStorage.getItem("OptionsValueManufacturer"));
+      localStorage.setItem("OptionsValueCategoryId",category_id); ////console.log(localStorage.getItem("OptionsValueCategoryId"));
+     // var filtersValue = category_name+","+category_id+","+this.color+","+this.manufacturer+","+this.price; //console.log(filtersValue);
        self.state.go("app.prodListing", {'category_id':'filter', 'category_name':category_name});
-     // console.log(this);
+     // //console.log(this);
     }
   
     prodFilterCtrl.prototype.showMeSearch = function(){
@@ -143,15 +149,15 @@ console.log($stateParams);
     prodFilterCtrl.prototype.myclickfilter = function(){ //alert("hh");
 
         var min = 100; var max = 200;
-         this.searchproducts = function(x) { //alert("h"); console.log(x);
+         this.searchproducts = function(x) { //alert("h"); //console.log(x);
             return x.regularprice > min && x.regularprice <= max;
         };
     }
 
 
    prodFilterCtrl.prototype.showList = function(){
-        //console.log(this.showMe);
-        //console.log(this.priceShow);
+        ////console.log(this.showMe);
+        ////console.log(this.priceShow);
 
       if(this.showMe == false && this.priceShow == true){
 
@@ -167,8 +173,8 @@ console.log($stateParams);
     }
 
   prodFilterCtrl.prototype.showPrice = function(){
-     //console.log(this.showMe);
-     //console.log(this.priceShow);
+     ////console.log(this.showMe);
+     ////console.log(this.priceShow);
     if(this.showMe == true && this.priceShow == false){
 
       this.showMe = false;
@@ -183,8 +189,8 @@ console.log($stateParams);
   }  
 
   prodFilterCtrl.prototype.showColor = function(){
-    //console.log(this.showMe);
-    //    console.log(this.priceShow);
+    ////console.log(this.showMe);
+    //    //console.log(this.priceShow);
     if(this.showMe == true || this.priceShow == true && this.colorShow == false){
 
       this.showMe = false;

@@ -16,11 +16,6 @@ loginCtrl = (function($state, $ionicHistory, $stateParams, $ionicLoading, $rootS
           var path = 'banner';
         }
         
-
-        
-       this.loginSrvc = loginSrvc;
-       this.signupSrvc = signupSrvc;
-       
         this.user = {};
         this.fuser = {};
         this.ShowPassword = 'password';
@@ -28,31 +23,38 @@ loginCtrl = (function($state, $ionicHistory, $stateParams, $ionicLoading, $rootS
         this.msg = 'new';
         var finalState = 'new'; 
 
-            loginCtrl.prototype.userLogin = function(finalState,$scope) { console.log("Login"); console.log(this.user); console.log(this.password);console.log("Login2"); 
+            loginCtrl.prototype.userLogin = function(finalState,$scope) { //console.log("Login"); //console.log(this.user); //console.log(this.password);//console.log("Login2"); 
 
-              if(!this.user.username){
-                this.signupSrvc.showToastBanner("Please enter email address.", "short", "center");
-                return;
+            if(!this.user.username){
+              signupSrvc.showToastBanner("Please enter email address.", "short", "center");
+              return;
             }
 
             if(this.user.username){
                  var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
                  if(!re.test(this.user.username)){
-                   this.signupSrvc.showToastBanner('Please Enter Your Valid Email', "short", "center");
+                   signupSrvc.showToastBanner('Please Enter Your Valid Email', "short", "center");
                    return;
                  }
              }
 
             if(!this.user.password){
-                this.signupSrvc.showToastBanner("Please enter password.", "short", "center");
+                signupSrvc.showToastBanner("Please enter password.", "short", "center");
                 return;
             }
               $ionicLoading.show();
-               this.loginSrvc.chkLogin(this.user.username, this.user.password).then(function(response) {
+
+              if(localStorage.getItem("cartid") && localStorage.getItem("cartid") != '' && localStorage.getItem("cartid") != 'undefined'){
+                    var shoppingCartId = localStorage.getItem("cartid");
+                } else {
+                    var shoppingCartId = null;
+                }
+
+               loginSrvc.chkLogin(this.user.username, this.user.password, shoppingCartId).then(function(response) { //console.log("Login Restponse"); //console.log(response);
                 $ionicLoading.hide();
                    if(response.error == '0'){
                       //alert("Login Successfull.");
-                      /*$rootScope.globals = {};
+                      $rootScope.globals = {};
                       $rootScope.globals = {
                         currentUser: {
                             customer_id: response.entity_id,
@@ -60,125 +62,48 @@ loginCtrl = (function($state, $ionicHistory, $stateParams, $ionicLoading, $rootS
                             lastname: response.lastname,
                             email: response.email,
                         }
-                      }; */
-                      //console.log("rootsoup"); console.log($rootScope);
+                      };
+
+                      if(response.resultMergeCart){
+                        localStorage.setItem("cartid", response.resultMergeCart.shopping_cart_id);
+                        localStorage.setItem("cartTotal", response.resultMergeCart.shopping_cart_items_total.items_count);
+                      }
+                    //  //console.log("rootsoup"); //console.log($rootScope);
 
                       localStorage.setItem("email", response.email);
                       localStorage.setItem("firstname", response.firstname);
                       localStorage.setItem("lastname", response.lastname);
-                      localStorage.setItem("customer_id", response.entity_id);
+                      localStorage.setItem("customer_id", response.entity_id); 
+                     //alert("Hi"+localStorage.getItem("firstname"));
                       $state.go("app."+path);
                    }else{
-                    alert("Your username or password is wrong.");
+                    //alert("Your username or password is wrong.");
+                    signupSrvc.showToastBanner("Your username or password is wrong.", "short", "center");
+                    return;
                    }
+
+                   
                    
                });
             }
 
             loginCtrl.prototype.forgotPassword = function() {
               if(!this.fuser.fusername){
-                this.signupSrvc.showToastBanner("Please enter email address.", "short", "center");
+                signupSrvc.showToastBanner("Please enter email address.", "short", "center");
                 return;
              }
 
             if(this.fuser.fusername){
                  var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
                  if(!re.test(this.fuser.fusername)){
-                   this.signupSrvc.showToastBanner('Please Enter Your Valid Email', "short", "center");
+                   signupSrvc.showToastBanner('Please Enter Your Valid Email', "short", "center");
                    return;
                  }
              }
 
-             this.signupSrvc.showToastBanner('Password reset mail is sent.', "short", "center");
+             signupSrvc.showToastBanner('Password reset mail is sent.', "short", "center");
             }
-
-            loginCtrl.prototype.isAvailable = function() { alert("isavailable");
-                 window.plugins.googleplus.isAvailable(function(avail) {alert(avail)}); 
-            }
-
-            loginCtrl.prototype.login = function() {
-                window.plugins.googleplus.login(
-                {
-                    'offline': true, 
-                    'webApiKey': '801555343420-cef98b3pfgja3shmaioep0ks95iompvg.apps.googleusercontent.com',
-                  },
-                  function (obj) { console.log(obj);
-                    document.querySelector("#image").src = obj.imageUrl;
-                    document.querySelector("#image").style.visibility = 'visible';
-                    document.querySelector("#feedback").innerHTML = "Hi, " + obj.displayName + ", " + obj.email;
-                  },
-                  function (msg) { console.log(msg);
-                    document.querySelector("#feedback").innerHTML = "error: " + msg;
-                  }
-              );
-            }
-
-            loginCtrl.prototype.trySilentLogin = function() { 
-                    window.plugins.googleplus.trySilentLogin(
-                    {
-                    'scopes': '... ', 
-                    'offline': true,
-                    'webApiKey': '801555343420-qhn1qql7kbk192tfg3un084epso2isrn.apps.googleusercontent.com',
-                  },
-                    function (obj) {  console.log(obj);
-                      document.querySelector("#image").src = obj.imageUrl;
-                      document.querySelector("#image").style.visibility = 'visible';
-                      document.querySelector("#feedback").innerHTML = "Silent hi, " + obj.displayName + ", " + obj.email;
-                    },
-                    function (msg) { console.log(msg);
-                      document.querySelector("#feedback").innerHTML = "error: " + msg;
-                    }
-                );
-            }
-
-            loginCtrl.prototype.logout = function() {
-                window.plugins.googleplus.logout(
-                    function (msg) { console.log(msg);
-                      document.querySelector("#image").style.visibility = 'hidden';
-                      document.querySelector("#feedback").innerHTML = msg;
-                    }
-                );
-            }
-
-            loginCtrl.prototype.disconnect = function() {
-                      window.plugins.googleplus.disconnect(
-                          function (msg) {  console.log(msg);
-                            document.querySelector("#image").style.visibility = 'hidden';
-                            document.querySelector("#feedback").innerHTML = msg;
-                          }
-                      );
-            }
-
-              window.onerror = function(what, line, file) {
-                alert(what + '; ' + line + '; ' + file);
-              };
-              function handleOpenURL (url) {
-                document.querySelector("#feedback").innerHTML = "App was opened by URL: " + url;
-              }
-
-            
-
-            loginCtrl.prototype.gmailLogin = function() { alert("gamil");
-            window.plugins.googleplus.isAvailable(function(avail) {alert(avail)});
-            var obj;
-                window.plugins.googleplus.login(
-                  {},
-                  function (obj) {
-                    alert(JSON.stringify(obj)); // do something useful instead of alerting
-                    console.log("success"); console.log(obj);
-                  },
-                  function (msg) {
-                    alert('error: ' + msg);
-                    console.log("success"); console.log(obj);
-                  }
-              );
-            }
-       
-        
-
     }
-
-     
 
     return loginCtrl;
 })();

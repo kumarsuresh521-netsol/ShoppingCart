@@ -9,7 +9,7 @@ checkoutSrvc = (function($log, $http, $q, constants) {
 
     var checkoutSrvc = {
         
-        getUserShippingData: function(customerId, quoteId) { console.log("IN getUserShippingData");console.log("customer id "+ customerId); console.log("quoteId id "+ quoteId);
+        getUserShippingData: function(customerId, quoteId) { //console.log("IN getUserShippingData");//console.log("customer id "+ customerId); //console.log("quoteId id "+ quoteId);
             var deferred;
             deferred = chk.$q.defer();
             $http.post(constants.API_URL+'checkout/getShippingAddress', {
@@ -29,7 +29,7 @@ checkoutSrvc = (function($log, $http, $q, constants) {
                 })(this));
            return deferred.promise;
         },
-        getUserBillingData: function(customerId, quoteId) { console.log("IN getUserBillingData");console.log("customer id "+ customerId); console.log("quoteId id "+ quoteId);
+        getUserBillingData: function(customerId, quoteId) { //console.log("IN getUserBillingData");//console.log("customer id "+ customerId); //console.log("quoteId id "+ quoteId);
             var deferred;
             deferred = chk.$q.defer();
             $http.post(constants.API_URL+'checkout/getBillingAddress', {
@@ -49,7 +49,7 @@ checkoutSrvc = (function($log, $http, $q, constants) {
                 })(this));
            return deferred.promise;
         }, 
-        updateUserBillingData: function(customerId, quoteId, billingData) { console.log("IN updateUserBillingData");
+        updateUserBillingData: function(customerId, quoteId, billingData) { //console.log("IN updateUserBillingData");
             var deferred;
             deferred = chk.$q.defer();
             $http.post(constants.API_URL+'checkout/updateBillingAddress', {
@@ -57,12 +57,12 @@ checkoutSrvc = (function($log, $http, $q, constants) {
                      quoteId: quoteId,
                     billing: billingData
                 })
-                .success((function(_this) { console.log("success billing update");
-                    return function(data, status) { console.log(data); console.log(status);
+                .success((function(_this) { //console.log("success billing update");
+                    return function(data, status) { //console.log(data); //console.log(status);
                         return deferred.resolve(data);
                     };
-                })(this)).error((function(_this) { console.log("error billing update");
-                    return function(data, status, headers) {  console.log(data); console.log(status);  console.log(headers);
+                })(this)).error((function(_this) { //console.log("error billing update");
+                    return function(data, status, headers) {  //console.log(data); //console.log(status);  //console.log(headers);
                         $log.error("Failed to product" + status);
                         $log.error("Failed to product Service");
                         return deferred.reject(data);
@@ -70,7 +70,7 @@ checkoutSrvc = (function($log, $http, $q, constants) {
                 })(this));
            return deferred.promise;
         }, 
-        updateUserShippingData: function(customerId, quoteId, shippingData) { console.log("IN updateUserShippingData");
+        updateUserShippingData: function(customerId, quoteId, shippingData) { //console.log("IN updateUserShippingData");
             var deferred;
             deferred = chk.$q.defer();
             $http.post(constants.API_URL+'checkout/updateShippingAddress', {

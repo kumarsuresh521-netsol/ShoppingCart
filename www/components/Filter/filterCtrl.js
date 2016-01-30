@@ -21,8 +21,8 @@ filterCtrl = (function($rootScope,$scope,$ionicSideMenuDelegate,$state) {
     
 
    filterCtrl.prototype.showList = function(){
-        console.log(this.showMe);
-        console.log(this.priceShow);
+        //console.log(this.showMe);
+        //console.log(this.priceShow);
 
       if(this.showMe == false && this.priceShow == true){
 
@@ -38,8 +38,8 @@ filterCtrl = (function($rootScope,$scope,$ionicSideMenuDelegate,$state) {
     }
 
   filterCtrl.prototype.showPrice = function(){
-     console.log(this.showMe);
-     console.log(this.priceShow);
+     //console.log(this.showMe);
+     //console.log(this.priceShow);
     if(this.showMe == true && this.priceShow == false){
 
       this.showMe = false;
@@ -57,8 +57,8 @@ filterCtrl = (function($rootScope,$scope,$ionicSideMenuDelegate,$state) {
 
 
   filterCtrl.prototype.showColor = function(){
-    console.log(this.showMe);
-        console.log(this.priceShow);
+    //console.log(this.showMe);
+        //console.log(this.priceShow);
     if(this.showMe == true || this.priceShow == true && this.colorShow == false){
 
       this.showMe = false;
@@ -67,8 +67,7 @@ filterCtrl = (function($rootScope,$scope,$ionicSideMenuDelegate,$state) {
       
     }
   }
-
-    }
+}
 
 
     return filterCtrl;

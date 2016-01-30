@@ -5,7 +5,7 @@ var prodListingCtrl;
 prodListingCtrl = (function($rootScope, $scope, $state, $ionicLoading, prodListingSrvc, $ionicPopover, cartSrvc, bannerSrvc) {
 
 	function prodListingCtrl($rootScope,  $scope, prodListingSrvc , $state , $stateParams, $ionicLoading, $ionicPopover, cartSrvc, bannerSrvc) {
-        
+        //console.log($stateParams);
         this.state = $state;
         var self = this;
         this.showMe = false;
@@ -25,15 +25,15 @@ prodListingCtrl = (function($rootScope, $scope, $state, $ionicLoading, prodListi
             self.cartTotal = '0';
         }
             
-            if($stateParams.category_id == "filter"){ //alert("new");
+            if($stateParams.category_id == "filter"){ //alert("filter");
             $ionicLoading.show();
 
-            var OptionsValuePrice = localStorage.getItem("OptionsValuePrice"); localStorage.removeItem("OptionsValuePrice");
-            var OptionsValueColor = localStorage.getItem("OptionsValueColor"); localStorage.removeItem("OptionsValueColor");
-            var OptionsValueManufacturer = localStorage.getItem("OptionsValueManufacturer"); localStorage.removeItem("OptionsValueManufacturer");
-            var category_id = localStorage.getItem("OptionsValueCategoryId"); localStorage.removeItem("OptionsValueCategoryId");
+            var OptionsValuePrice = localStorage.getItem("OptionsValuePrice"); //localStorage.removeItem("OptionsValuePrice");
+            var OptionsValueColor = localStorage.getItem("OptionsValueColor"); //localStorage.removeItem("OptionsValueColor");
+            var OptionsValueManufacturer = localStorage.getItem("OptionsValueManufacturer"); //localStorage.removeItem("OptionsValueManufacturer");
+            var category_id = localStorage.getItem("OptionsValueCategoryId"); //localStorage.removeItem("OptionsValueCategoryId");
             var category_name = $stateParams.category_name;
-//console.log(category_id); console.log(OptionsValueColor); console.log(OptionsValueManufacturer); console.log(OptionsValuePrice); console.log(category_name); return;
+////console.log(category_id); //console.log(OptionsValueColor); //console.log(OptionsValueManufacturer); //console.log(OptionsValuePrice); //console.log(category_name); return;
             var price = '';
             var color = '';
             var manufacturer = '';
@@ -50,7 +50,7 @@ prodListingCtrl = (function($rootScope, $scope, $state, $ionicLoading, prodListi
                 var manufacturer = OptionsValueManufacturer;
             }
 
-                prodListingSrvc.getFilterData(category_id, color, manufacturer, price).then(function(response) { console.log(response);
+                prodListingSrvc.getFilterData(category_id, color, manufacturer, price).then(function(response) { //console.log(response);
                   if(response.success == 1 && response.data.products.length > 0){
                       self.prodListing = response.data.products;
                       self.ShowProducts = true;
@@ -68,7 +68,7 @@ prodListingCtrl = (function($rootScope, $scope, $state, $ionicLoading, prodListi
             $ionicLoading.show();
                 var category_name = $stateParams.category_name;
             //New Products Listing....
-                bannerSrvc.getBdataSecond().then(function(response) {
+                bannerSrvc.getBdataSecond().then(function(response) { //console.log(response);
                     if(response.length > 0){
                       self.prodListing = response;
                       self.ShowProducts = true;
@@ -104,8 +104,18 @@ prodListingCtrl = (function($rootScope, $scope, $state, $ionicLoading, prodListi
                 var category_name = $stateParams.category_name;
             
           
-                prodListingSrvc.getCdata(category_id).then(function(response) { console.log(response);
+                prodListingSrvc.getCdata(category_id).then(function(response) { //console.log(response);
                   if(response.success == 1 && response.data.products.length > 0){
+
+                    for(i=0; i<response.data.products.length; i++){
+                      if(response.data.products[i].specialprice){
+                          response.data.products[i].finalprice = response.data.products[i].specialprice;
+                      } else {
+                        response.data.products[i].finalprice = response.data.products[i].regularprice;
+                      }
+                      
+                    }
+
                       self.prodListing = response.data.products;
                       self.ShowProducts = true;
                   } else { 
@@ -151,7 +161,7 @@ prodListingCtrl = (function($rootScope, $scope, $state, $ionicLoading, prodListi
     prodListingCtrl.prototype.myclickfilter = function(){ //alert("hh");
 
         var min = 100; var max = 200;
-         this.searchproducts = function(x) { //alert("h"); console.log(x);
+         this.searchproducts = function(x) { //alert("h"); //console.log(x);
             return x.regularprice > min && x.regularprice <= max;
         };
     }
@@ -162,8 +172,8 @@ prodListingCtrl = (function($rootScope, $scope, $state, $ionicLoading, prodListi
    }
 
    prodListingCtrl.prototype.showList = function(){
-        //console.log(this.showMe);
-        //console.log(this.priceShow);
+        ////console.log(this.showMe);
+        ////console.log(this.priceShow);
 
       if(this.showMe == false && this.priceShow == true){
 

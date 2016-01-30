@@ -62,7 +62,7 @@ changePasswordCtrl = (function($state, $stateParams,$rootScope, $scope, profileS
                 return;
             }
 
-            profileSrvc.changePassword(customer_id, old_password, password).then(function(response) { console.log("change password response"); console.log(response);
+            profileSrvc.changePassword(customer_id, old_password, password).then(function(response) { //console.log("change password response"); //console.log(response);
                 if(response){
                     if(resposne.success){
                         this.state.go("app.profile");

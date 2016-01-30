@@ -28,24 +28,43 @@
   </div>
 
   <!-- Top Heading -->
- <div class="bar bar-header bar-dark" style="float:left;width:100%;">
+  <div class="bar bar-header bar-dark" style="float:left;width:100%;">
     <h1 class="title">Wishlist</h1>
   </div>
 
-  <p ng-hide="wl.isrecords" class="no-record">Sorry! No Record Found.</p> 
   
-        <div class="list card" style="padding-top: 92px;" ng-show="wl.isrecords">
+        <div class="list" style="margin-top: 80px; float:left;width:100%;" ng-if="wl.wishlist">
+          <div class="card orderProduct" ng-repeat="x in wl.wishlist" >
+            <a class="item item-thumbnail-left" href="#" style="border:none !important;">
+              <img src="img/no-thumb.png" ng-src="{{x.product_image}}"/>
+            </a>
+            <div class="content"> 
+              <h2>{{x.product_name}}</h2>
+              <!-- <p ng-if="x.options" ng-repeat="y in x.options"><b>{{y.label}} :</b> {{y.value | uppercase}}</p> -->
+              <p>Price: {{x.product_price | currency}}</p>
+              <!-- <p>Quantity: {{x.qty | number}}</p> -->
+            </div>
+            <p style="text-align:center;">
+              <button class="button button-small button-assertive" ng-click="wl.RemoveFromWishlist($index, x.wishlist_item_id)">Remove From Wishlist</button>
+              <button class="button button-small button-positive" ng-click="wl.AddToCart(x.product_id)">Add To Cart</button>
+            </p>
+        </div>
+      </div>
+
+      <p ng-if="!wl.wishlist" class="no-record">Sorry! No Record Found.</p> 
+
+<!--
+        <div class="list card" style="padding-top: 92px;float:left;" ng-show="wl.isrecords">
           <a class="item item-thumbnail-left" href="#" ng-repeat="x in wl.wishlist">
             <img ng-src="{{x.product_image}}">
             <h2>{{x.product_name}}</h2>
             <p>Price {{x.product_price | currency}}</p>
             <p>Quantity {{x.qty | number}}</p>
-            <div ng-bind-html="x.product_short_description" class="price_box ng-binding"></div>
             <p>
               <button class="button button-small button-assertive" ng-click="wl.RemoveFromWishlist($index, x.wishlist_item_id)">Remove From Wishlist</button>
               <button class="button button-small button-positive" ng-click="wl.AddToCart(x.product_id)">Add To Cart</button>
             </p>
           </a>
-        </div>
+        </div> -->
   </ion-content>
 </ion-view>

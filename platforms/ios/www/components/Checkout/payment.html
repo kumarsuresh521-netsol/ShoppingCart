@@ -20,7 +20,7 @@
         <ul class="list">
           <li class="item item-checkbox" ng-repeat="x in phc.shippingMethod">
              <label class="checkbox">
-               <input type="radio"  ng-model="phc.shippingm.meth" name="{{x.code}}" value="{{x.code}}" checked="checked" />
+               <input type="radio"  ng-model="phc.shippingm" name="{{x.code}}" value="{{x.code}}" checked="checked" />
              </label>
              {{x.carrier_title}}
           </li>
@@ -34,7 +34,7 @@
         <ul class="list">
           <li class="item item-checkbox" ng-repeat="x in phc.paymentMethod">
              <label class="checkbox">
-               <input type="radio"  ng-model="phc.paymentm.meth" name="{{x.code}}" value="{{x.code}}" checked="checked" />
+               <input type="radio"  ng-model="phc.paymentm" name="{{x.code}}" value="{{x.code}}" checked="checked" />
              </label>
              {{x.title}}
           </li>

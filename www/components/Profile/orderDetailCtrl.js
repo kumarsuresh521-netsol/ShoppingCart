@@ -22,7 +22,7 @@ orderDetailCtrl = (function($state,$rootScope, $stateParams, $scope, profileSrvc
         var orderId = $stateParams.orderId;
         
         if(orderId){
-            profileSrvc.getMyOrderDetail(orderId).then(function(response) { console.log("order details response"); console.log(response);
+            profileSrvc.getMyOrderDetail(orderId).then(function(response) { //console.log("order details response"); //console.log(response);
               if(response.success == 1){
                 self.orderDetail = response.order;
               } else {

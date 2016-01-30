@@ -21,19 +21,23 @@ homeCtrl = (function($rootScope,$scope,$ionicSideMenuDelegate,$state, $ionicLoad
         } else {
             var category_id = 1;
         }
-
+ //alert(category_id);
        self.categoryHeading = $stateParams.category_name;
-var myarray = [];
+      
+     
        menuSrvc.getCategories().then(function(response) {
-         
-            for(i=0; i<response.length; i++){ 
-                if(response[i].parent_id == category_id){
-                    myarray.push(response[i]);
-                    
+          
+          if(response.success == 1){
+            for(i=0; i<response.data.children[0].children.length; i++){  console.log(response.data.children[0].children[i]);
+                if(response.data.children[0].children[i].category_id == category_id){
+                    self.category = response.data.children[0].children[i].children;
                 }
             } 
+          } else {
+            alert("Server Error!");
+          }
         }).finally(function(){ 
-            self.category = myarray; console.log(myarray);
+            
             $ionicLoading.hide();
         });
 
@@ -42,7 +46,7 @@ var myarray = [];
             scope: $scope,
           }).then(function(popover) {
             $scope.popover = popover;
-          });
+          });       
      }
 
      homeCtrl.prototype.showMeSearch = function(searchproducts){

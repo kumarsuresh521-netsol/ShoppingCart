@@ -5,7 +5,7 @@ var prodListingCtrl;
 prodListingCtrl = (function($rootScope, $scope, $state, $ionicLoading, prodListingSrvc, $ionicPopover, cartSrvc, bannerSrvc) {
 
 	function prodListingCtrl($rootScope,  $scope, prodListingSrvc , $state , $stateParams, $ionicLoading, $ionicPopover, cartSrvc, bannerSrvc) {
-        
+        console.log($stateParams);
         this.state = $state;
         var self = this;
         this.showMe = false;
@@ -19,39 +19,38 @@ prodListingCtrl = (function($rootScope, $scope, $state, $ionicLoading, prodListi
 
         this.searchproducts = $rootScope.srch;
 
-                
         if(localStorage.getItem("cartTotal") && localStorage.getItem("cartTotal") != 'NaN' && localStorage.getItem("cartid") && localStorage.getItem("cartid") != 'NaN' ){
             self.cartTotal = localStorage.getItem("cartTotal");    
         } else {
             self.cartTotal = '0';
         }
             
-            if($stateParams.category_id == "filter"){ alert("new");
+            if($stateParams.category_id == "filter"){ //alert("new");
             $ionicLoading.show();
-      
-                var OptionsValue = $stateParams.category_name; console.log(OptionsValue);
-                var filterOptions = OptionsValue.split(',');
-                
-            //New Products Listing....
 
-              var category_name = filterOptions[0];
-              var category_id = filterOptions[1];
+            var OptionsValuePrice = localStorage.getItem("OptionsValuePrice"); localStorage.removeItem("OptionsValuePrice");
+            var OptionsValueColor = localStorage.getItem("OptionsValueColor"); localStorage.removeItem("OptionsValueColor");
+            var OptionsValueManufacturer = localStorage.getItem("OptionsValueManufacturer"); localStorage.removeItem("OptionsValueManufacturer");
+            var category_id = localStorage.getItem("OptionsValueCategoryId"); localStorage.removeItem("OptionsValueCategoryId");
+            var category_name = $stateParams.category_name;
+//console.log(category_id); console.log(OptionsValueColor); console.log(OptionsValueManufacturer); console.log(OptionsValuePrice); console.log(category_name); return;
+            var price = '';
+            var color = '';
+            var manufacturer = '';
 
-              if(filterOptions[2] && filterOptions[2] != 'undefined' && filterOptions[2] != ''){
-                var color = filterOptions[2];
-              }
+            if(OptionsValuePrice && OptionsValuePrice != 'undefined' && OptionsValuePrice != ''){
+                var price = OptionsValuePrice;
+            }
+            
+            if(OptionsValueColor && OptionsValueColor != 'undefined' && OptionsValueColor != ''){
+                var color = OptionsValueColor;
+            }
 
-              if(filterOptions[3] && filterOptions[3] != 'undefined' && filterOptions[3] != ''){
-                var manufecturer = filterOptions[3];
-              }
+            if(OptionsValueManufacturer && OptionsValueManufacturer != 'undefined' && OptionsValueManufacturer != ''){
+                var manufacturer = OptionsValueManufacturer;
+            }
 
-              if(filterOptions[4] && filterOptions[4] != 'undefined' && filterOptions[4] != ''){
-                //var price_range  = filterOptions[4].replace('$','');
-                //var price  = price_range.replace('$','');
-                var price = filterOptions[4];
-              }
-
-                prodListingSrvc.getFilterData(category_id, color, manufecturer, price).then(function(response) { console.log(response);
+                prodListingSrvc.getFilterData(category_id, color, manufacturer, price).then(function(response) { console.log(response);
                   if(response.success == 1 && response.data.products.length > 0){
                       self.prodListing = response.data.products;
                       self.ShowProducts = true;
@@ -69,7 +68,7 @@ prodListingCtrl = (function($rootScope, $scope, $state, $ionicLoading, prodListi
             $ionicLoading.show();
                 var category_name = $stateParams.category_name;
             //New Products Listing....
-                bannerSrvc.getBdataSecond().then(function(response) {
+                bannerSrvc.getBdataSecond().then(function(response) { console.log(response);
                     if(response.length > 0){
                       self.prodListing = response;
                       self.ShowProducts = true;
@@ -107,6 +106,16 @@ prodListingCtrl = (function($rootScope, $scope, $state, $ionicLoading, prodListi
           
                 prodListingSrvc.getCdata(category_id).then(function(response) { console.log(response);
                   if(response.success == 1 && response.data.products.length > 0){
+
+                    for(i=0; i<response.data.products.length; i++){
+                      if(response.data.products[i].specialprice){
+                          response.data.products[i].finalprice = response.data.products[i].specialprice;
+                      } else {
+                        response.data.products[i].finalprice = response.data.products[i].regularprice;
+                      }
+                      
+                    }
+
                       self.prodListing = response.data.products;
                       self.ShowProducts = true;
                   } else { 

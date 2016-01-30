@@ -13,14 +13,14 @@
         .config(configure)
         .constant('constants', {
             APP_NAME: 'CLOTH SHOPPING',
-           // API_URL: 'http://hybdmobi-test.netsolutions.in/index.php/phonegapapp/'
-          API_URL: 'http://magento-netsol.netsol.local/magento_1.9/index.php/phonegapapp/'
+            //API_URL: 'http://hybdmobi-test.netsolutions.in/index.php/phonegapapp/'
+            API_URL: 'http://magento-netsol.netsol.local/magento_1.9/index.php/phonegapapp/'
         })
 
      .directive('searchBar', [function () {
     return {
         scope: {
-            ngModel: '='
+            ngModel: '=' 
         },
         require: ['^ionNavBar', '?ngModel'],
         restrict: 'E',

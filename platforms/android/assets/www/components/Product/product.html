@@ -70,12 +70,24 @@
         </div>
    </div>
 <!-- Related Products End --> 
-<!-- <button ng-click="pd.goToCompare()" class="button button-full button-assertive">Go To Compare</button> -->
+
+ <!-- Recommended Products --> 
+  <h3 ng-if="pd.pdata.recommended_products" style="float:left; margin:0px; width:100%; padding:5px; color:#000; margin-top:10px;background:#fff;">Recommended Products</h3>
+   <div class="products" style="display: flex; overflow-y: hidden; overflow-x: visible; width:100%; float:left;">
+        <div class="product" ng-repeat="x in pd.pdata.recommended_products">
+            <div class="product_img"><a href="javascript:;"  ng-click="pd.fetchDetail(x.productid)"><img style="width: 168px !important; height:auto !important;" src="img/no-thumb.png" ng-src="{{x.image}}" /></a></div>
+            <div class="product_name">{{x.name | cut:true:50:' ..'}}</div>
+            <div class="price" ng-if="x.specialprice" style="text-align: center;"><span class="regularPrice">{{x.regularprice | currency}}</span><span class="product_price">{{x.specialprice | currency}}</span></div>
+            <div class="price" ng-if="!x.specialprice" style="text-align: center;"><span class="product_price">{{x.regularprice | currency}}</span></div>
+        </div>
+   </div>
+<!-- Recommended Products End --> 
+
   </div>
 
 
   </ion-content>
-  <ion-footer-bar style="       margin: 0 0 0 -5px;">
+  <ion-footer-bar style="margin: 0 0 0 -5px;">
     <div class="tabs tabs-icon-top">
   <!--<a class="tab-item"  ng-click="window.plugins.socialsharing.share('Message, subject, image and link', '{{pd.pdata.name}}', '{{pd.pdata.productimage[0].url}}', '{{pd.pdata.productimage[0].url}}')"> -->
   <a class="tab-item" ng-click="pd.addToCompare(pd.productid)">

@@ -20,7 +20,7 @@
 
         <div class="filter-sub">
             <!-- Hidden list (Manufacturer) -->
-            <ul class="list" ng-show="pfc.manufacturerShow"> 
+            <ul class="list" ng-show="pfc.manufacturerShow" style="width:100%;"> 
               <li class="item item-checkbox filter-list" ng-repeat="x in pfc.filters.manufacturer">
                 <div class="customised-filter">{{x.name | uppercase}}</div>
                  <label class="checkbox">
@@ -30,7 +30,7 @@
             </ul>
              <!-- Hidden list (Color) -->
 
-            <ul class="list" ng-repeat="x in pfc.filters.color"  ng-show="pfc.colorShow">
+            <ul class="list" ng-repeat="x in pfc.filters.color"  ng-show="pfc.colorShow" style="width:100%;"> 
               <li class="item item-checkbox filter-list">
                 <div class="customised-filter">{{x.name | uppercase}}</div>
                  <label class="checkbox">
@@ -39,7 +39,7 @@
               </li>
             </ul>
 
-            <ul class="list" ng-show="pfc.priceShow">
+            <ul class="list" ng-show="pfc.priceShow" style="width:100%;"> 
               <li class="item item-checkbox filter-list" ng-repeat="x in pfc.filters.price track by $index">
                 <div class="customised-filter">{{x}}</div>
                  <label class="checkbox">

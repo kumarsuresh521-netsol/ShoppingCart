@@ -25,8 +25,8 @@
       <button class="button button-clear ion-arrow-swap" ng-click="pc.showMeSelect()"></button>
     </div>
     <ul class="dropdown" ng-hide="pc.showListing">
-       <a class="links" href="#" ng-click="pc.myclick('+regularprice')"><li class="item-sort"> PRICE-HIGH TO LOW </li></a>
-       <a class="links" href="#" ng-click="pc.myclick('-regularprice')"><li class="item-sort" style="padding:7px">PRICE-LOW TO HIGH </li></a>
+       <a class="links" href="#" ng-click="pc.myclick('-finalprice')"><li class="item-sort"> PRICE-HIGH TO LOW </li></a>
+       <a class="links" href="#" ng-click="pc.myclick('+finalprice')"><li class="item-sort" style="padding:7px">PRICE-LOW TO HIGH </li></a>
    </ul>
 
   <!-- Search -->
@@ -44,10 +44,10 @@
       <!-- Collection Repeat  -->
     <!-- <div class="card product" ng-class-odd="'borderodd'" ng-class-even="'bordereven'" collection-repeat="x in pc.prodListing | orderBy:pc.selectPrice | filter:pc.searchproducts" collection-item-width="'50%'" collection-item-height="256px"> -->
       <div class="card product" ng-show="pc.ShowProducts" ng-class-odd="'borderodd'" ng-class-even="'bordereven'" ng-repeat="x in pc.prodListing | orderBy:pc.selectPrice | filter:pc.searchproducts">
-            <div class="product_img" style="width:158px;"><a ng-click="pc.fetchDetail({{x.productid}})"><img  src="img/no-thumb.png" ng-src="{{x.image}}" /></a></div>
-            <div class="product_name">{{x.name | cut:true:42:'..'}}</div>
-            <div class="price" ng-if="x.specialprice" style="text-align: center;"><span class="regularPrice">{{x.regularprice | currency}}</span><span class="product_price">{{x.specialprice | currency}}</span></div>
-            <div class="price" ng-if="!x.specialprice" style="text-align: center;"><span class="product_price">{{x.regularprice | currency}}</span></div>
+          <div class="product_img" style="width:100%;"><a ng-click="pc.fetchDetail({{x.productid}})"><img  src="img/no-thumb.png" ng-src="{{x.image}}" /></a></div>
+          <div class="product_name">{{x.name | cut:true:42:'..'}}</div>
+          <div class="price" ng-if="x.specialprice" style="text-align: center;"><span class="regularPrice">{{x.regularprice | currency}}</span><span class="product_price">{{x.specialprice | currency}}</span></div>
+          <div class="price" ng-if="!x.specialprice" style="text-align: center;"><span class="product_price">{{x.regularprice | currency}}</span></div>
       </div>
       
 	    </div>

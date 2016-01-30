@@ -13,13 +13,13 @@ profileCtrl = (function($state, $stateParams,$rootScope, $scope, profileSrvc, ca
 
         var customer_id = localStorage.getItem('customer_id');
         
-        if(localStorage.getItem("cartTotal") && localStorage.getItem("cartid")){
-            self.cartTotal = localStorage.getItem("cartTotal");    
-        } else {
-            self.cartTotal = 0;
-        }
+        if(localStorage.getItem("cartTotal") && localStorage.getItem("cartTotal") != 'NaN' && localStorage.getItem("cartid") && localStorage.getItem("cartid") != 'NaN' ){
+                self.cartTotal = localStorage.getItem("cartTotal");    
+            } else {
+                self.cartTotal = '0';
+            }
         
-        profileSrvc.getProfile(customer_id).then(function(response) { console.log("profile response"); console.log(response);
+        profileSrvc.getProfile(customer_id).then(function(response) { //console.log("profile response"); //console.log(response);
             if(response.success == 1){
                 self.profileInfo = response.data;
             } else {
@@ -43,7 +43,7 @@ profileCtrl = (function($state, $stateParams,$rootScope, $scope, profileSrvc, ca
               {
                 text: '<b>Save</b>',
                 type: 'button-positive',
-                onTap: function(e) { console.log($scope);
+                onTap: function(e) { //console.log($scope);
                  
                     var firstname = self.profileInfo.customer_profile_info.firstname;
                     var lastname = self.profileInfo.customer_profile_info.lastname;
@@ -100,9 +100,9 @@ profileCtrl = (function($state, $stateParams,$rootScope, $scope, profileSrvc, ca
         }
 
         profileCtrl.prototype.showBillingPopup = function(index) { //alert(index);
-            //console.log(x); console.log(x.city);
+            ////console.log(x); //console.log(x.city);
             self.index = index;
-//console.log(self.profileInfo.addresses[index].firstname);
+////console.log(self.profileInfo.addresses[index].firstname);
             var myPopupBilling = $ionicPopup.show({
             template: '<div class="list"> <label class="item item-input item-floating-label"> <span class="input-label">First Name</span><input type="text" ng-model="pl.profileInfo.addresses[pl.index].firstname" name="firstname" placeholder="First Name" ng-minlength="3" ng-maxlength="15" required/>  </label> <label class="item item-input item-floating-label"> <span class="input-label">Last Name</span> <input type="text" ng-model="pl.profileInfo.addresses[pl.index].lastname" name="lastname" placeholder="Last Name" ng-minlength="3" ng-maxlength="15" required /> </label><label class="item item-input item-floating-label"><span class="input-label">City/Town</span> <input type="text" ng-model="pl.profileInfo.addresses[pl.index].city" name="city"  placeholder="City/Town"/></label><label class="item item-input item-floating-label"> <span class="input-label">State</span><input type="text" ng-model="pl.profileInfo.addresses[pl.index].region" name="region"  placeholder="State"/></label><input type="hidden" ng-model="pl.profileInfo.addresses[pl.index].country_id" name="country_id"/><!--  <label class="item item-input item-select"> <div class="input-label"> Country </div><select name="countary_name" ng-init="pl.profileInfo.addresses[pl.index].country_id = pl.profileInfo.addresses[pl.index].country_id" ng-model="pl.profileInfo.addresses[pl.index].country_id" style="right:5px;" ng-options="pl.profileInfo.addresses[pl.index].country_id as pl.profileInfo.addresses[pl.index].name for x in pl.profileInfo.addresses[pl.index].country_list"></select></label> --> <label class="item item-input item-floating-label"> <span class="input-label">Pin Code</span> <input type="text" ng-model="pl.profileInfo.addresses[pl.index].postcode" name="postcode" placeholder="Pin Code"/>  </label> <label class="item item-input item-floating-label"> <span class="input-label">Phone Number</span><input type="text" ng-model="pl.profileInfo.addresses[pl.index].telephone" name="telephone"  placeholder="Phone Number"/> </label> </div>',
             title: 'Edit Information',
@@ -113,7 +113,7 @@ profileCtrl = (function($state, $stateParams,$rootScope, $scope, profileSrvc, ca
               {
                 text: '<b>Save</b>',
                 type: 'button-positive',
-                onTap: function(e) { console.log($scope);
+                onTap: function(e) { //console.log($scope);
                  
                     var firstname = self.profileInfo.addresses[index].firstname;
                     var lastname = self.profileInfo.addresses[index].lastname;
@@ -205,7 +205,7 @@ profileCtrl = (function($state, $stateParams,$rootScope, $scope, profileSrvc, ca
                         'telephone': telephone
                     }
 
-                     profileSrvc.updateBillingAddress(customer_id, self.profileInfo.addresses[index].customer_address_id, self.profileInfo.addresses[index]).then(function(response) { console.log(response);
+                     profileSrvc.updateBillingAddress(customer_id, self.profileInfo.addresses[index].customer_address_id, self.profileInfo.addresses[index]).then(function(response) { //console.log(response);
                         if(response.success == 1){
                             cartSrvc.showToastBanner("Form submitted successfully.", "short", "center");
                             return;

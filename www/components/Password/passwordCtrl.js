@@ -9,7 +9,7 @@ passwordCtrl = (function($state) {
 	
 
     function passwordCtrl(passwordSrvc, $state,$stateParams) {
-    //console.log(this);
+    ////console.log(this);
 	this.state = $state ;
 	//this.password = passwordSrvc;
 	
@@ -24,7 +24,7 @@ passwordCtrl = (function($state) {
 			
     		this.IsMatch=true;
   		}
-  			console.log(this);
+  			//console.log(this);
 
 	}
 	

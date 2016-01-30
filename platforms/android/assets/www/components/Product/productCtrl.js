@@ -32,11 +32,11 @@ productCtrl = (function($rootScope,$scope,$state,productSrvc, $ionicSideMenuDele
                 $ionicLoading.hide();
                 this.state.go("app.banner");
             }
-           
-           productCtrl.prototype.addToCart = function(id){
+            
+           productCtrl.prototype.addToCart = function(id){ console.log(self.Color); console.log(self.Manufacturers); console.log(self.Size);
                 $scope.options = [];
-         // Check Options are selected or not...   
-         if(self.pdata.optionid){    
+         // Check Options are selected or not...
+        /* if(self.pdata.optionid){ console.log("HI");   
                 if(self.Color == '' || self.Color == 'undefined' || self.Color == 'null' || self.Color == undefined){
                         cartSrvc.showToastBanner("Please Select Color options.", "short", "center");
                         return;
@@ -51,7 +51,7 @@ productCtrl = (function($rootScope,$scope,$state,productSrvc, $ionicSideMenuDele
                         cartSrvc.showToastBanner("Please Select Size options.", "short", "center");
                         return;
                     }
-            }
+            } */
         // Options code end here...
                 $ionicLoading.show();
                 if(self.pdata.optionid){
@@ -116,7 +116,7 @@ productCtrl = (function($rootScope,$scope,$state,productSrvc, $ionicSideMenuDele
                     var cartid = null;
                 }
                 
-                alert(cartid);
+               // alert(cartid);
                 request["products"]= products1;
                 request["customer"]= customer;
                 request["shopping_cart_id"]= cartid;
@@ -124,13 +124,13 @@ productCtrl = (function($rootScope,$scope,$state,productSrvc, $ionicSideMenuDele
                 //console.log(request);
 
 
-                        $ionicLoading.hide();
+                       /* $ionicLoading.hide();
                         if(localStorage.getItem("cartTotal") && localStorage.getItem("cartTotal") != 'NaN' && localStorage.getItem("cartid") && localStorage.getItem("cartid") != 'NaN' ){
                             var cartTotal = localStorage.getItem("cartTotal");
                         } else {
                             var cartTotal = 0;
                         }
-                        self.cartTotal = parseInt(cartTotal) + 1;
+                        self.cartTotal = parseInt(cartTotal) + 1; */
                         //cartSrvc.showToastBanner("Product is add to cart successfully.", "short", "center");
 
 
@@ -139,36 +139,18 @@ productCtrl = (function($rootScope,$scope,$state,productSrvc, $ionicSideMenuDele
                         
                     if(response.errorMsg){
                         $ionicLoading.hide();
-                        //cartSrvc.showToastBanner(response.errorMsg, "short", "center");
+                        cartSrvc.showToastBanner(response.errorMsg, "short", "center");
                         return;
-                    }else if(response.cart_id){
-                        localStorage.setItem("cartid", response.cart_id);
+                    }else if(response.data.cart_id){
+                        localStorage.setItem("cartid", response.data.cart_id);
+                        var cartTotal = response.data.items_count;
+                        localStorage.setItem("cartTotal", cartTotal);
+                        self.cartTotal = cartTotal;
                         
-                        if(localStorage.getItem("cartTotal") && localStorage.getItem("cartTotal") != 'NaN' && localStorage.getItem("cartid") && localStorage.getItem("cartid") != 'NaN' ){
-                            var cartTotal = localStorage.getItem("cartTotal");
-                        } else {
-                            var cartTotal = 0;
-                        }
-                        self.cartTotal = parseInt(cartTotal) + 1; //alert(self.cartTotal);
-                        localStorage.setItem("cartTotal", self.cartTotal);
-                    }
-                  /*  if(response.cart_id){
-                        localStorage.setItem("cartid", response.cart_id);
-                        
-                          if(localStorage.getItem("cartTotal") && localStorage.getItem("cartTotal") != 'NaN' && localStorage.getItem("cartid") && localStorage.getItem("cartid") != 'NaN' ){
-                                var cartTotal = localStorage.getItem("cartTotal");
-                            } else {
-                                var cartTotal = 0;
-                            }
-                        
-                        localStorage.setItem("cartTotal", parseInt(cartTotal) + 1);
-
-                        self.cartTotal = parseInt(cartTotal) + 1; //alert(self.cartTotal);
-
                         $ionicLoading.hide();
                         
                         cartSrvc.showToastBanner(response.msg, "short", "center");
-                    } */
+                    }
                 }); 
 
                 $ionicHistory.nextViewOptions({
@@ -182,6 +164,7 @@ productCtrl = (function($rootScope,$scope,$state,productSrvc, $ionicSideMenuDele
          }
 
          productCtrl.prototype.addToWishlist = function(product_id){
+            $ionicLoading.show();
             var customerId = localStorage.getItem('customer_id');
 
             if(customerId && customerId != ''){
@@ -193,11 +176,14 @@ productCtrl = (function($rootScope,$scope,$state,productSrvc, $ionicSideMenuDele
                     }
                     
                 });
+                $ionicLoading.hide();
             } else {
-                $state.go("app.login",{ 'route': 'banner' });
-            }
 
-            
+                cartSrvc.showToastBanner("Please login first.", "short", "center");
+                $ionicLoading.hide();
+                $state.go("app.login",{ 'route': 'banner' });
+                return;
+            }
         }
 
         productCtrl.prototype.goToProductDetails = function(product_id){

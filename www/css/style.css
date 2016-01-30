@@ -10,6 +10,24 @@
 	display:inline
 }
 
+/* Accordion Side Menu */
+
+.list .item.item-accordion {
+  line-height: 38px;
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: 0.09s all linear;
+}
+.list .item.item-accordion.ng-hide {
+  line-height: 0px;
+}
+.list .item.item-accordion.ng-hide-add,
+.list .item.item-accordion.ng-hide-remove {
+  display: block !important;
+}
+
+/* Accourdion Side Menu  End Here..*/
+
 .im-wrapper, .padding{
    padding: 6px 16px 16px 16px!important;
 }
@@ -499,6 +517,7 @@ color: #fff;
     background-position: center;
     height: 100%;
     width: 100%;
+    background-color: rgba(125, 130, 136, 0.68);
 }
 
 .formbk input[placeholder], .formbk input[text], .formbk input[password], .formbk input[checkbox], .formbk [placeholder], .formbk  *[placeholder] {

@@ -18,7 +18,7 @@ paymentCtrl = (function($scope,$ionicSideMenuDelegate,$state, cartSrvc, checkout
 
         
             
-            checkoutSrvc.getUserCheckoutMethods(cartid).then(function(response) { //console.log(" payment....");console.log(response);
+            checkoutSrvc.getUserCheckoutMethods(cartid).then(function(response) { console.log(" payment....");console.log(response);
                 if(response.success == 1){
                     self.shippingMethod = {};
                     self.paymentMethod = {};
@@ -33,8 +33,8 @@ paymentCtrl = (function($scope,$ionicSideMenuDelegate,$state, cartSrvc, checkout
 
  //Payment.html Payment Infomation
         paymentCtrl.prototype.PaymentInfo = function(){
-            var shippingm = self.shippingm.meth;
-            var paymentm = self.paymentm.meth;
+            var shippingm = self.shippingm;
+            var paymentm = self.paymentm;
             
             if(!shippingm){
                 cartSrvc.showToastBanner("Shipping method is required.", "short", "center");

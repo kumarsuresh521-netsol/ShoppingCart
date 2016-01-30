@@ -1,7 +1,7 @@
 var bannerCtrl;
 
-bannerCtrl = (function($rootScope, $scope,$ionicSideMenuDelegate,$state, $ionicNavBarDelegate, $ionicLoading, $ionicHistory, homeSrvc, prodListingSrvc, cartSrvc, $ionicPopover,$timeout) {
-    function bannerCtrl($rootScope,$scope,bannerSrvc,$ionicNavBarDelegate, $ionicSideMenuDelegate,$state, $ionicLoading, $ionicHistory, homeSrvc, prodListingSrvc, cartSrvc, $ionicModal, $ionicPopover, $timeout) {
+bannerCtrl = (function($rootScope, $scope,loginSrvc, $ionicSideMenuDelegate,$state, $ionicNavBarDelegate, $ionicLoading, $ionicHistory, homeSrvc, prodListingSrvc, cartSrvc, $ionicPopover,$timeout) {
+    function bannerCtrl($rootScope,loginSrvc, $scope,bannerSrvc,$ionicNavBarDelegate, $ionicSideMenuDelegate,$state, $ionicLoading, $ionicHistory, homeSrvc, prodListingSrvc, cartSrvc, $ionicModal, $ionicPopover, $timeout) {
 
        this.state = $state;
        this.scope = $scope;
@@ -28,6 +28,12 @@ bannerCtrl = (function($rootScope, $scope,$ionicSideMenuDelegate,$state, $ionicN
 
             if(this.categories.length > 0){
                 showCat(this.categories);
+            }
+
+             bannerCtrl.prototype.cartId = function(){
+                loginSrvc.chkLogin2().then(function(response) {
+                      alert(response); console.log("response"); console.log(response);
+                   });
             }
 
             function showCat(categories){ //console.log(i); console.log(categories)

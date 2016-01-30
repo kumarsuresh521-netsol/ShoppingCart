@@ -28,7 +28,7 @@ homeCtrl = (function($rootScope,$scope,$ionicSideMenuDelegate,$state, $ionicLoad
        menuSrvc.getCategories().then(function(response) {
           
           if(response.success == 1){
-            for(i=0; i<response.data.children[0].children.length; i++){  console.log(response.data.children[0].children[i]);
+            for(i=0; i<response.data.children[0].children.length; i++){  //console.log(response.data.children[0].children[i]);
                 if(response.data.children[0].children[i].category_id == category_id){
                     self.category = response.data.children[0].children[i].children;
                 }

@@ -1,10 +1,6 @@
 <ion-side-menus enable-menu-with-back-views="true" ng-controller="menuCtrl as mc">
   <ion-side-menu-content drag-content="false">
     <ion-nav-bar class="bar-stable">
-      
-      <ion-nav-back-button>
-      </ion-nav-back-button>
-
       <ion-nav-buttons side="left">
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
         </button>
@@ -16,32 +12,39 @@
   <!-- Left menu -->
   <ion-side-menu side="left">
   <ion-header-bar class="bar-stable"> 
-      <h1 class="title">Welcome {{mc.username}}</h1>
+      <h1 class="title">Welcome {{globals.currentUser.firstname}}</h1>
   </ion-header-bar>  
   
-  <ion-content class="sidenav" padding="true" scroll="false" class="has-header" style="background: #fff;">
-    <ion-list ng-repeat="x in mc.youcategories" ng-if="x.parent_id == 2">
-        <a href="javascript:;" style="text-decoration:none;"> 
+  <ion-content class="sidenav" padding="true" scroll="true" class="has-header" style="background: #fff;">
+
+    <ion-list >
+        <a href="javascript:;" style="text-decoration:none;" ng-repeat="x in mc.youcategories" ng-if="x.level == 2"> 
           <ion-item menu-close ng-click="mc.getSub($index, {{x.position}}, {{x.category_id}}, '{{x.name}}')" class="item-icon-right">
             {{x.name | uppercase}}  <span class="badge badge-dark" ng-if="x.product_totalcount">{{x.product_totalcount}}</span>
          </ion-item>
         </a>
-    </ion-list>    
- <!--   
-    <div class="space"></div>
-      <ion-list>
-        <ion-item   menu-close class="sideicon"  ng-click="mc.nav('app.setting')">
-            <i class="icon ion-gear-a"></i><br />
-              SETTINGS
-        </ion-item>
-        <ion-item  menu-close class="sideicon">
-            <a href="javascript:;" ng-click="mc.LogOut()"><i class="icon ion-log-out"></i></a><br />
-              LOG OUT
-        </ion-item> 
+    </ion-list>
+
+<!--
+    <ion-list>
+        <div ng-repeat="x in mc.youcategories">
+          <ion-item class="item-stable"
+                    ng-click="toggleGroup(x)"
+                    ng-class="{active: isGroupShown(x)}">
+              <i class="icon" ng-class="isGroupShown(x) ? 'ion-minus' : 'ion-plus'"></i>
+            &nbsp;
+            {{x.name | uppercase}}
+          </ion-item>
+          <ion-item ng-if="x.children" class="item-accordion"
+                    ng-repeat="y in x.children"
+                    >
+            {{y.name | uppercase}}
+          </ion-item>
+        </div>
       </ion-list>
 -->
+
     </ion-content>
-  
     </ion-side-menu>
 </ion-side-menus>
 

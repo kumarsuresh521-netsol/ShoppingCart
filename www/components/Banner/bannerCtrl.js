@@ -1,7 +1,7 @@
 var bannerCtrl;
 
-bannerCtrl = (function($rootScope, $scope,$ionicSideMenuDelegate,$state, $ionicNavBarDelegate, $ionicLoading, $ionicHistory, homeSrvc, prodListingSrvc, cartSrvc, $ionicPopover,$timeout) {
-    function bannerCtrl($rootScope,$scope,bannerSrvc,$ionicNavBarDelegate, $ionicSideMenuDelegate,$state, $ionicLoading, $ionicHistory, homeSrvc, prodListingSrvc, cartSrvc, $ionicModal, $ionicPopover, $timeout) {
+bannerCtrl = (function($rootScope, $scope,loginSrvc, $ionicSideMenuDelegate,$state, $ionicNavBarDelegate, $ionicLoading, $ionicHistory, homeSrvc, prodListingSrvc, cartSrvc, $ionicPopover,$timeout) {
+    function bannerCtrl($rootScope,loginSrvc, $scope,bannerSrvc,$ionicNavBarDelegate, $ionicSideMenuDelegate,$state, $ionicLoading, $ionicHistory, homeSrvc, prodListingSrvc, cartSrvc, $ionicModal, $ionicPopover, $timeout) {
 
        this.state = $state;
        this.scope = $scope;
@@ -20,7 +20,7 @@ bannerCtrl = (function($rootScope, $scope,$ionicSideMenuDelegate,$state, $ionicN
         
             $ionicLoading.show();
 
-            this.categories = homeSrvc.children[0].children;// console.log("hime servies");console.log(this.categories);
+            this.categories = homeSrvc.children[0].children;// ////console.log("hime servies");////console.log(this.categories);
 
             var prodCatListing = {};
 
@@ -30,9 +30,15 @@ bannerCtrl = (function($rootScope, $scope,$ionicSideMenuDelegate,$state, $ionicN
                 showCat(this.categories);
             }
 
-            function showCat(categories){ //console.log(i); console.log(categories)
+             bannerCtrl.prototype.cartId = function(){
+                loginSrvc.chkLogin2().then(function(response) {
+                      alert(response); //////console.log("response"); ////console.log(response);
+                   });
+            }
+
+            function showCat(categories){ //////console.log(i); ////console.log(categories)
                 if(categories[i]){
-                prodListingSrvc.getCdata(categories[i].category_id).then(function(response) { //console.log("hime servies");console.log(response);
+                prodListingSrvc.getCdata(categories[i].category_id).then(function(response) { //////console.log("hime servies");////console.log(response);
                         //response[i].category_name = this.categories[i].name;
                         if(response.data.products.length > 0 ){ 
                             if(categories[i]){
@@ -40,7 +46,7 @@ bannerCtrl = (function($rootScope, $scope,$ionicSideMenuDelegate,$state, $ionicN
                                       prodCatListing[i] = response.data.products;
                                         prodCatListing[i].name = categories[i].name;
                                         prodCatListing[i].category_id = categories[i].category_id;
-                                        self.prodCatListing = prodCatListing;  //console.log("sfsfdsdf servies"); console.log(self.prodCatListing);
+                                        self.prodCatListing = prodCatListing;  //////console.log("sfsfdsdf servies"); ////console.log(self.prodCatListing);
                                   } else {
                                     return;
                                   }
@@ -63,7 +69,7 @@ bannerCtrl = (function($rootScope, $scope,$ionicSideMenuDelegate,$state, $ionicN
                 }
             });
 
-            bannerSrvc.getBdataSpecial().then(function(response) { console.log("Special Banner"); console.log(response);
+            bannerSrvc.getBdataSpecial().then(function(response) { //////console.log("Special Banner"); ////console.log(response);
                 if(response.length > 0){
                     self.categoryBannersSpecial = response;
                 }

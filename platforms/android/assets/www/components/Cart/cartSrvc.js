@@ -72,10 +72,10 @@ cartSrvc = (function($log, $http, $q, constants) {
            return deferred.promise;
         },
 //Update Cart..
-        updateCartProducts: function(products, quoteId, customer_id) {
+        updateCartProducts: function(products, quoteId, customer_id) { //alert("hello");
             var deferred;
             deferred = pd.$q.defer();
-            $http.post(constants.API_URL+'cart/UpdateProduct', {
+            $http.post(constants.API_URL+'cart/updateProduct', {
                     products: products,
                     quoteId: quoteId, 
                     customerId: customer_id
@@ -113,7 +113,26 @@ cartSrvc = (function($log, $http, $q, constants) {
                     };
                 })(this));
            return deferred.promise;
-        }    
+        },
+//Delete Products from cart..
+        deleteCartProduct: function(quoteId, products) {
+            var deferred;
+            deferred = pd.$q.defer();
+            $http.post(constants.API_URL+'cart/RemoveProduct', {
+                    quoteId: quoteId, 
+                    products: products
+                })
+                .success((function(_this) {
+                    return function(data, status) {
+                        return deferred.resolve(data);
+                    };
+                })(this)).error((function(_this) {
+                    return function(data, status, headers) {
+                        return deferred.reject(data);
+                    };
+                })(this));
+           return deferred.promise;
+        }
 }
 
     return cartSrvc;

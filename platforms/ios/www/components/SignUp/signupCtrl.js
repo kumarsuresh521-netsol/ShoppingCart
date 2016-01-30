@@ -8,67 +8,67 @@ signupCtrl = (function($rootScope,$scope,signupSrvc, $state, $ionicSideMenuDeleg
            // $state.go("app.banner");
            // return;
         }
-        this.signupSrvc = signupSrvc;
+        //this.signupSrvc = signupSrvc;
         this.user = {};
         this.ShowPassword = 'password';
 
 
         signupCtrl.prototype.userSignUp = function() { 
             if(!this.user.firstname){
-                this.signupSrvc.showToastBanner("Please enter first name.", "short", "center");
+                signupSrvc.showToastBanner("Please enter first name.", "short", "center");
                 return;
             }
 
             if(this.user.firstname.length <3 || this.user.firstname.length > 10){
-                this.signupSrvc.showToastBanner("Firstname length must be in 3-10.", "short", "center");
+                signupSrvc.showToastBanner("Firstname length must be in 3-10.", "short", "center");
                 return;
             }
 
             if(!this.user.lastname){
-                this.signupSrvc.showToastBanner("Please enter last name.", "short", "center");
+                signupSrvc.showToastBanner("Please enter last name.", "short", "center");
                 return;
             }
 
             if(this.user.lastname.length <3 || this.user.lastname.length > 10){
-                this.signupSrvc.showToastBanner("Lastname length must be in 3-10.", "short", "center");
+                signupSrvc.showToastBanner("Lastname length must be in 3-10.", "short", "center");
                 return;
             }
 
             if(!this.user.username){
-                this.signupSrvc.showToastBanner("Please enter email address.", "short", "center");
+                signupSrvc.showToastBanner("Please enter email address.", "short", "center");
                 return;
             }
 
             if(this.user.username){
                  var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
                  if(!re.test(this.user.username)){
-                   this.signupSrvc.showToastBanner('Please Enter Your Valid Email', "short", "center");
+                   signupSrvc.showToastBanner('Please Enter Your Valid Email', "short", "center");
                    return;
                  }
              }
 
             if(!this.user.password){
-                this.signupSrvc.showToastBanner("Please enter password.", "short", "center");
+                signupSrvc.showToastBanner("Please enter password.", "short", "center");
                 return;
             }
 
             if(this.user.password.length <5 || this.user.password.length >10){
-                this.signupSrvc.showToastBanner("Password length must be in 5-10", "short", "center");
+                signupSrvc.showToastBanner("Password length must be in 5-10", "short", "center");
                 return;
             }
 
             if(!this.user.cpassword){
-                this.signupSrvc.showToastBanner("Please enter confirm password.", "short", "center");
+                signupSrvc.showToastBanner("Please enter confirm password.", "short", "center");
                 return;
             }
 
             if(this.user.password != this.user.cpassword){
-                this.signupSrvc.showToastBanner("Both passwords are not match.", "short", "center");
+                signupSrvc.showToastBanner("Both passwords are not match.", "short", "center");
                 return;
             }
-
-            var signup = this.signupSrvc.chkLogin(this.user.username, this.user.password, this.user.firstname, this.user.lastname).then(function(response){ console.log(response);
-               if(response.error == 0 && response.entity_id){ alert("You signup process is successfully completed.");
+            $ionicLoading.show();
+            var signup = signupSrvc.chkLogin(this.user.username, this.user.password, this.user.firstname, this.user.lastname).then(function(response){ console.log(response);
+               if(response.error == 0 && response.entity_id){
                     $rootScope.globals = {};
                       $rootScope.globals = {
                         currentUser: {
@@ -77,12 +77,20 @@ signupCtrl = (function($rootScope,$scope,signupSrvc, $state, $ionicSideMenuDeleg
                             lastname: response.lastname,
                             email: response.email,
                         }
-                      };
-                    $state.go("app.banner");
-                } else { 
-                    alert("Email is already exist.");
+                       };
+                            localStorage.setItem("email", response.email);
+                          localStorage.setItem("firstname", response.firstname);
+                          localStorage.setItem("lastname", response.lastname);
+                          localStorage.setItem("customer_id", response.entity_id); 
+                       
+                      signupSrvc.showToastBanner("You signup process is successfully completed.", "short", "center");
+                      $state.go("app.banner");
+                } else {
+                    signupSrvc.showToastBanner("Email is already exist.","short", "center");
                 return;
                 }
+            }).finally(function(){
+                $ionicLoading.hide();
             });
             
         }

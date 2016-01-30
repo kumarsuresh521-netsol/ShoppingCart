@@ -1,11 +1,9 @@
 
 <ion-view title="Signup"  hide-nav-bar="true" class="logintitle" ng-controller="signupCtrl as sp">
     <ion-content padding="false" scroll="true" class="formbk">
-   <!-- <a href="javascript:;" ui.sref="app.banner" style='margin-left:45%;'><img src="img/icon-small.png" class="appLogo"/></a> -->
-   <div style="float: left;background: rgba(125, 130, 136, 0.68); width: 100%;height: auto;margin-top: -39px;">
         <div style="width:100%; height:65px;"></div>
 
-        <a href="javascript:;" ui.sref="app.banner" style='text-align: center; float: left; width: 100% !important;'><img src="img/icon-big.png" style="height: 75px;"/></a>
+        <a href="javascript:;" ui-sref="app.banner" style='text-align: center; float: left; width: 100% !important;'><img src="img/icon-big.png" style="height: 75px;"/></a>
         <div class="spacer" style="height:50px;"></div>
         <div class="spacer main-heading" style="">SIGN UP</div>
         <div class="spacer" style="height:100px;"></div>
@@ -40,40 +38,6 @@
         </div>
          <div style="width: 70%; margin: 0 18%;">
             <button class="button button-dark button-clear button-small link-button" ui-sref="app.login">Already have an account? Sign In</button>
-            
          </div>
-<!--
-        <form name="userForm" novalidate>
-                <div class="spacer" style="width:100%; height:30px;"></div>
-                 <span class="heading">SIGN UP</span>
-                 <div class="spacer" style="width:100%; height:50px;"></div>                
-                 <label class="item item-input">
-                    <input type="text" ng-model="sp.user.firstname" name="firstname" placeholder="First Name" ng-minlength="3" ng-maxlength="10" required>
-                </label>
-                
-                <label class="item item-input">
-                    <input type="text" ng-model="sp.user.lastname" name="lastname" placeholder="Last Name" ng-minlength="3" ng-maxlength="12" required>
-                </label>
-                
-                <label class="item item-input">                    
-                    <input type="email" ng-model="sp.user.username" name="username" placeholder="Email" required >
-                </label>
-
-                <label class="item item-input">                    
-                    <input type="{{sp.ShowPassword}}" ng-model="sp.user.password" name="password" placeholder="Password" required>
-                </label>
-
-                <label class="item item-input">                    
-                    <input type="{{sp.ShowPassword}}" ng-model="sp.user.cpassword" name="cpassword" placeholder="Confirm Password" required>
-                </label>
-
-                 <ion-checkbox name="chkPassword" ng-click="sp.ShowPassword = (sp.ShowPassword == 'password') ? 'text' : 'password'">Show Password</ion-checkbox>
-
-
-            <button class="button button-positive button-block " ng-click="sp.userSignUp()">Sign up</button>
-            <div style="width:70%; margin:0 15%">
-                <button class="button button-stable button-clear button-small link-button"  ui-sref="app.login">Already have an account? Sign In</button>
-            </div>
-        </form> -->
     </ion-content>
 </ion-view>
